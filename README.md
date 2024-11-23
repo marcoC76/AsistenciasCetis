@@ -1,0 +1,2 @@
+# AsistenciasCetis
+ asistencias por qr
