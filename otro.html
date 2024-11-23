@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QR Scanner</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <!doctype html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="ZXing for JS">
+
+        <title>Qr scanner</title>
+        <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+            href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
+        <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+            href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <main class="wrapper" style="padding-top:2em">
+
+            <section class="container" id="demo-content">
+                <h1 class="title">Scanner QR</h1>
+                <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
+                <div class="container mx-auto p-4">
+                    <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del
+                        Profesor:</label>
+                    <input type="text" id="profesor" name="profesor"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required><br><br>
+
+                    <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
+                    <select id="periodo" name="periodo"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select><br><br>
+
+                    <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
+                    <select id="materia" name="materia"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        onchange="getComboA(this)">
+                        <option value="matematicas">Matemáticas</option>
+                        <option value="fisica">Física</option>
+                        <option value="quimica">Química</option>
+                    </select><br><br>
+                    <!-- <p>
+                    <a class="button-small button-outline" href="../../index.html">HOME 🏡</a>
+                </p> -->
+
+                    <!-- <p>This example shows how to scan a QR code with ZXing javascript library from the device video camera.
+                    If more than one video input devices are available (for example front and back camera) the example
+                    shows how to read them and use a select
+                    to change the input device.</p> -->
+
+                    <div>
+                        <a class="button" id="startButton">Leer qr</a>
+                        <a class="button" id="resetButton">Reset</a>
+                    </div>
+
+                    <div id="video-container">
+                        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+                    </div>
+
+                    <div id="sourceSelectPanel" style="display:none">
+                        <label for="sourceSelect">Change video source:</label>
+                        <select id="sourceSelect" style="max-width:400px">
+                        </select>
+                    </div>
+
+                    <label>Resultado:</label>
+                    <blockquote>
+                        <p id="result"></p>
+                    </blockquote>
+
+                    <!--                 <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/qr-camera/">source
+                        code</a> for this example.</p> -->
+            </section>
+
+            <footer class="footer">
+                <!-- <section class="container">
+                    <p>ZXing TypeScript Demo. Licensed under the <a target="_blank"
+                            href="https://github.com/zxing-js/library#license" title="MIT">MIT</a>.</p>
+                </section> -->
+            </footer>
+
+        </main>
+
+        <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
+        <script type="text/javascript">
+            const selectMateria = document.getElementById('materia');
+            const selectPeriodo = document.getElementById('periodo');
+            var jsonEntrada;
+            function handleClick() {
+                var Pro = document.getElementById('profesor').value;
+                var Pe = selectPeriodo.value;
+                const selectedValue = selectMateria.value;
+                if (selectedValue === "quimica") {
+                    var url = 'https://script.google.com/macros/s/AKfycbxncA5XO5DbbYUZREjo1ntT7j0Th5nvTmODF5iwzc6FvpFcGbN3TZq0xDBtYDQBTkGf/exec?';
+                    const iframe = document.createElement('iframe');
+                    iframe.src = url + jsonEntrada + 'Pe=' + Pe + '&Pro=' + Pro;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+
+                } else {
+                    var url = 'https://script.google.com/macros/s/AKfycbzu62QXB2DHUHNZo-815UNI0I22pgscE0w0CzR5WcmbFeYi_FaMxzuGZ4T_sshcz8y7lA/exec?';
+
+                    const iframe = document.createElement('iframe');
+                    iframe.src = url + jsonEntrada + 'Pe=' + Pe + '&Pro=' + Pro;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+
+                }
+                //que se abra un iframe invisible con un link 
+
+                //que se abra un iframe invisible con un link 
+
+
+            }
+            window.addEventListener('load', function () {
+                let selectedDeviceId;
+                const codeReader = new ZXing.BrowserQRCodeReader()
+                console.log('ZXing code reader initialized')
+                codeReader.getVideoInputDevices()
+                    .then((videoInputDevices) => {
+                        let videoIndex = 0;
+
+
+
+                        if (videoInputDevices.length >= 1) {
+                            videoInputDevices.forEach((element) => {
+                                console.log(element);
+                            })
+                            const sourceSelect = document.getElementById('sourceSelect')
+
+                            // videoIndex = 1
+                            console.log(videoInputDevices.length);
+                            let length = videoInputDevices.length - 1;
+
+                            if (videoInputDevices[length].deviceId) {
+                                selectedDeviceId = videoInputDevices[length].deviceId;
+                                document.getElementById('startButton').addEventListener('click', () => {
+                                    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+                                        console.log(result)
+                                        document.getElementById('result').textContent = result.text
+                                        jsonEntrada = result.text
+
+                                        var sound = new Howl({
+                                            src: ['https://marcoc76.github.io/audios/a-sudden-appearance-143034.mp3']
+                                        });
+
+                                        sound.play();
+                                        handleClick();
+                                        codeReader.reset();
+                                    }).catch((err) => {
+                                        console.error(err)
+                                        document.getElementById('result').textContent = err
+                                    })
+
+                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                })
+                            } else {
+                                document.getElementById('startButton').addEventListener('click', () => {
+                                    codeReader.decodeFromInputVideoDevice(undefined, 'video').then((result) => {
+                                        console.log(result)
+                                        document.getElementById('result').textContent = result.text
+                                        var sound = new Howl({
+                                            src: ['https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/jg-032316-sfx-elearning-correct-answer-sound-1.mp3']
+                                        });
+
+                                        sound.play();
+                                    }).catch((err) => {
+                                        console.error(err)
+                                        document.getElementById('result').textContent = err
+                                    })
+
+                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                })
+                            }
+                            console.log(length);
+                            console.log(selectedDeviceId);
+                        }
+
+                        document.getElementById('resetButton').addEventListener('click', () => {
+                            codeReader.reset()
+                            console.log('Reset.')
+                        })
+                    })
+                    .catch((err) => {
+                        console.error(err)
+                    })
+            })
+        </script>
+
+    </body>
+
+    </html>
+    <!-- partial -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js'></script>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Asistencia</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+</head>
+
+<body>
+    <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
+    <div class="container mx-auto p-4">
+        <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Profesor:</label>
+        <input type="text" id="profesor" name="profesor"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required><br><br>
+
+        <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
+        <select id="periodo" name="periodo"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select><br><br>
+
+        <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
+        <select id="materia" name="materia"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="matematicas">Matemáticas</option>
+            <option value="fisica">Física</option>
+            <option value="quimica">Química</option>
+        </select><br><br>
+        <button onclick="handleClick()"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cargar
+            Asistencia</button>
+    </div>
+    <script>
+        function handleClick(){
+            //que se abra un iframe invisible con un link 
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://script.google.com/macros/s/AKfycbzu62QXB2DHUHNZo-815UNI0I22pgscE0w0CzR5WcmbFeYi_FaMxzuGZ4T_sshcz8y7lA/exec?Ti=0&No=Alguien&ID=123546&Pe=1&Pro=MAPF';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+        }
+    </script>
+
+</body>
+
+</html>
