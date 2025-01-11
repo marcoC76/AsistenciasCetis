@@ -1,48 +1,281 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-    <title>Asistencia</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
-</head>
-
-<body>
-    <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
-    <div class="container mx-auto p-4">
-        <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Profesor:</label>
-        <input type="text" id="profesor" name="profesor"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required><br><br>
-
-        <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
-        <select id="periodo" name="periodo"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select><br><br>
-
-        <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
-        <select id="materia" name="materia"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <option value="matematicas">Matemáticas</option>
-            <option value="fisica">Física</option>
-            <option value="quimica">Química</option>
-        </select><br><br>
-        <button onclick="handleClick()"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cargar
-            Asistencia</button>
-    </div>
-    <script>
-        function handleClick(){
-            //que se abra un iframe invisible con un link 
-            const iframe = document.createElement('iframe');
-            iframe.src = 'https://script.google.com/macros/s/AKfycbzu62QXB2DHUHNZo-815UNI0I22pgscE0w0CzR5WcmbFeYi_FaMxzuGZ4T_sshcz8y7lA/exec?Ti=0&No=Alguien&ID=123546&Pe=1&Pro=MAPF';
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de QR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, color 0.5s ease;
+        }
+
+        input {
+            width: 300px;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #000;  /* Mantiene el color del texto negro */
+        }
+
+        input:focus {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        #qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto 0 auto;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            margin: 5px; /* Reduce el margen para que los botones estén más juntos */
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex; /*  Para centrar el ícono en el botón  */
+            align-items: center;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        #generate-button {
+            background-color: #007bff;  /* Blue */
+            color: #fff;
+        }
+
+        #download-button {
+            background-color: #28a745;  /* Green */
+            color: #fff;
+        }
+
+        #random-color-button {
+            background-color: #dc3545;  /* Red */
+            color: #fff;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center; /* Centers the buttons */
+        }
+
+        @media (max-width: 600px) {
+            input {
+                width: 90%;
+            }
+            .buttons {
+                flex-direction: column; /* Stack buttons vertically on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="qr-container">
+        <div class="title">Generador de QR</div>
+        <div class="subtitle">Proporciona tus datos para crear el QR</div>
+        <input id="nombre" type="text" value="" class="mt-4" placeholder="Nombre completo" />
+        <select id="grupoGrado" class="mt-4">
+            <option value="">Selecciona Grado y Grupo</option>
+            <option value="1A">1A</option>
+            <option value="1B">1B</option>
+            <option value="1C">1C</option>
+            <option value="1D">1D</option>
+            <option value="1E">1E</option>
+            <option value="1F">1F</option>
+            <option value="1G">1G</option>
+            <option value="1H">1H</option>
+            <option value="2A">2A</option>
+            <option value="2B">2B</option>
+            <option value="2C">2C</option>
+            <option value="2D">2D</option>
+            <option value="2E">2E</option>
+            <option value="2F">2F</option>
+            <option value="2G">2G</option>
+            <option value="2H">2H</option>
+            <option value="3A">3A</option>
+            <option value="3B">3B</option>
+            <option value="3C">3C</option>
+            <option value="3D">3D</option>
+            <option value="3E">3E</option>
+            <option value="3F">3F</option>
+            <option value="3G">3G</option>
+            <option value="3H">3H</option>
+            <option value="4A">4A</option>
+            <option value="4B">4B</option>
+            <option value="4C">4C</option>
+            <option value="4D">4D</option>
+            <option value="4E">4E</option>
+            <option value="4F">4F</option>
+            <option value="4G">4G</option>
+            <option value="4H">4H</option>
+            <option value="5A">5A</option>
+            <option value="5B">5B</option>
+            <option value="5C">5C</option>
+            <option value="5D">5D</option>
+            <option value="5E">5E</option>
+            <option value="5F">5F</option>
+            <option value="5G">5G</option>
+            <option value="5H">5H</option>
+            <option value="6A">6A</option>
+            <option value="6B">6B</option>
+            <option value="6C">6C</option>
+            <option value="6D">6D</option>
+            <option value="6E">6E</option>
+            <option value="6F">6F</option>
+            <option value="6G">6G</option>
+            <option value="6H">6H</option>
+        </select>
+        <select id="turno" class="mt-4">
+            <option value="">Selecciona Turno</option>
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+        </select>
+        <div class="buttons">
+            <button id="generate-button" class="btn" onclick="makeCode()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z"/></svg></button>  <!--  Generar QR (Play Button) -->
+            <button id="download-button" class="btn" disabled><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg></button>  <!--  Descargar QR (Download Button) -->
+          <!--   <button id="random-color-button" class="btn" onclick="setQRCodeColors()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"/></svg></button> -->  <!-- Color Aleatorio (Paint Bucket) -->
+        </div>
+        <div id="qrcode"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/qrcode.js"></script>
+    <script>
+        // Función para generar un color hexadecimal aleatorio
+        function getRandomColor() {
+            let letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Función para obtener un color contrastante basado en el brillo del color pasado
+        function getContrastingColor(color) {
+            const hex = color.replace('#', '');
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            return brightness > 125 ? '#000000' : '#ffffff';
+        }
+
+        // Inicializa el QR code una sola vez
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 200,
+            height: 200,
+            colorDark : "#000000",  // Color inicial por defecto
+            colorLight : "#ffffff"  // Fondo inicial por defecto
+        });
+
+        // Cambia los colores del QR, el fondo del body y del contenedor
+        function setQRCodeColors() {
+            const qrColor = getRandomColor();
+            const bgColor = getContrastingColor(qrColor);
+            const textColor = getContrastingColor(bgColor);  // Asegura el contraste del texto
+            // Cambiar colores del QR
+            qrcode._htOption.colorDark = qrColor;
+            qrcode._htOption.colorLight = bgColor;
+            // Aplicar degradado animado de fondo al body
+            document.body.style.background = `linear-gradient(135deg, ${qrColor}, ${bgColor})`;
+            // Cambiar colores y borde del contenedor
+            const container = document.getElementById('qr-container');
+            container.style.backgroundColor = bgColor;
+            container.style.border = `5px solid ${qrColor}`;
+            container.style.boxShadow = `0 4px 20px ${qrColor}`;
+            // Cambiar color del texto en el contenedor
+            container.style.color = textColor;
+            // Cambiar el color del borde del input, pero mantener el texto negro
+            const input = document.getElementById('text');
+            input.style.borderColor = qrColor;
+
+            // Add this to change the QR background color
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.style.backgroundColor = bgColor;
+        }
+
+        // Generar el código QR
+        function makeCode() {
+            var elText = document.getElementById("text");
+            if (!elText.value) {
+                elText.focus();
+                return;
+            }
+            setQRCodeColors();  // Cambiar los colores aleatorios
+            qrcode.makeCode(elText.value);  // Generar el código QR con el nuevo valor
+            // Enable the download button after generating the QR code
+            document.getElementById('download-button').disabled = false;
+        }
+
+        // Generar el primer QR
+        makeCode();
+
+        // Añadir eventos para generar el QR al presionar enter o al perder el foco
+        $("#text").on("blur", function () {
+            makeCode();
+        }).on("keydown", function (e) {
+            if (e.keyCode == 13) {
+                makeCode();
+            }
+        });
+
+        // Function to download the QR image
+        function downloadQR() {
+            const qrCanvas = document.getElementById("qrcode").getElementsByTagName("canvas")[0];
+            const downloadLink = document.createElement("a");
+            downloadLink.href = qrCanvas.toDataURL("image/png"); // Get the image data
+            downloadLink.download = "qrcode.png";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+        // Add event listeners to the buttons
+        document.getElementById('generate-button').addEventListener('click', makeCode);
+        document.getElementById('download-button').addEventListener('click', downloadQR);
     </script>
-
 </body>
-
 </html>
