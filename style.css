@@ -4,52 +4,77 @@
 @tailwind utilities;
 
 body {
-  background-color: #edfdfe;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.wrapper {
-  max-width: 800px;
-  margin: 0 auto;
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+main {
   padding: 2rem;
 }
 
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-h1 {
-  color: #14b1c6;
+#sourceSelectPanel {
+  margin: 1rem 0;
 }
 
-.button {
-  background-color: #14b1c6;
+blockquote {
+  background-color: #e7e7e7;
+  border-left: 10px solid #ccc;
+  margin: 1.5rem 10px;
+  padding: 0.5rem 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+select, input {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+button {
+  background-color: #4CAF50;
   color: white;
-  padding: 1rem 2rem;
   border: none;
-  border-radius: 5px;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+  margin: 0.5rem 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 4px;
 }
 
-.button:hover {
-  background-color: #12849b;
+button:hover {
+  background-color: #45a049;
 }
-
-.button-small {
-  padding: 0.5rem 1rem;
-}
-
-.button-outline {
-  background-color: transparent;
-  border: 2px solid #14b1c6;
-  color: #14b1c6;
-}
-
-.button-outline:hover {
-  background-color: #14b1c6;
-  color: white;
-}
-
-/* Agrega estilos adicionales para los demás elementos según sea necesario */
