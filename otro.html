@@ -110,8 +110,10 @@
                 var Pro = document.getElementById('profesor').value;
                 var Pe = selectPeriodo.value;
                 var selectedValue = selectMateria.value;
-                if (selectedValue === "fisica") {
+
+                if (selectedValue == "matematicas") {
                     var url = 'https://script.google.com/macros/s/AKfycbxncA5XO5DbbYUZREjo1ntT7j0Th5nvTmODF5iwzc6FvpFcGbN3TZq0xDBtYDQBTkGf/exec?';
+
                     const iframe = document.createElement('iframe');
                     iframe.src = url + jsonEntrada + 'Pe=' + Pe + '&Pro=' + Pro;
                     iframe.style.display = 'none';
