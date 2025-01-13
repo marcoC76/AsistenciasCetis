@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +19,17 @@
         }
 
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
@@ -40,7 +49,8 @@
             border-radius: 8px;
             outline: none;
             transition: all 0.3s ease;
-            color: #000;  /* Mantiene el color del texto negro */
+            color: #000;
+            /* Mantiene el color del texto negro */
         }
 
         input:focus {
@@ -67,13 +77,15 @@
         /* Button Styles */
         .btn {
             padding: 10px 20px;
-            margin: 5px; /* Reduce el margen para que los botones estén más juntos */
+            margin: 5px;
+            /* Reduce el margen para que los botones estén más juntos */
             font-size: 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
-            display: flex; /*  Para centrar el ícono en el botón  */
+            display: flex;
+            /*  Para centrar el ícono en el botón  */
             align-items: center;
         }
 
@@ -82,100 +94,99 @@
         }
 
         #generate-button {
-            background-color: #007bff;  /* Blue */
+            background-color: #007bff;
+            /* Blue */
             color: #fff;
         }
 
         #download-button {
-            background-color: #28a745;  /* Green */
+            background-color: #28a745;
+            /* Green */
             color: #fff;
         }
 
         #random-color-button {
-            background-color: #dc3545;  /* Red */
+            background-color: #dc3545;
+            /* Red */
             color: #fff;
         }
 
         .buttons {
             display: flex;
-            justify-content: center; /* Centers the buttons */
+            justify-content: center;
+            /* Centers the buttons */
         }
 
         @media (max-width: 600px) {
             input {
                 width: 90%;
             }
+
             .buttons {
-                flex-direction: column; /* Stack buttons vertically on smaller screens */
+                flex-direction: column;
+                /* Stack buttons vertically on smaller screens */
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container" id="qr-container">
         <div class="title">Generador de QR</div>
-        <div class="subtitle">Proporciona tus datos para crear el QR</div>
-        <input id="nombre" type="text" value="" class="mt-4" placeholder="Nombre completo" />
-        <select id="grupoGrado" class="mt-4">
-            <option value="">Selecciona Grado y Grupo</option>
-            <option value="1A">1A</option>
-            <option value="1B">1B</option>
-            <option value="1C">1C</option>
-            <option value="1D">1D</option>
-            <option value="1E">1E</option>
-            <option value="1F">1F</option>
-            <option value="1G">1G</option>
-            <option value="1H">1H</option>
-            <option value="2A">2A</option>
-            <option value="2B">2B</option>
-            <option value="2C">2C</option>
-            <option value="2D">2D</option>
-            <option value="2E">2E</option>
-            <option value="2F">2F</option>
-            <option value="2G">2G</option>
-            <option value="2H">2H</option>
-            <option value="3A">3A</option>
-            <option value="3B">3B</option>
-            <option value="3C">3C</option>
-            <option value="3D">3D</option>
-            <option value="3E">3E</option>
-            <option value="3F">3F</option>
-            <option value="3G">3G</option>
-            <option value="3H">3H</option>
-            <option value="4A">4A</option>
-            <option value="4B">4B</option>
-            <option value="4C">4C</option>
-            <option value="4D">4D</option>
-            <option value="4E">4E</option>
-            <option value="4F">4F</option>
-            <option value="4G">4G</option>
-            <option value="4H">4H</option>
-            <option value="5A">5A</option>
-            <option value="5B">5B</option>
-            <option value="5C">5C</option>
-            <option value="5D">5D</option>
-            <option value="5E">5E</option>
-            <option value="5F">5F</option>
-            <option value="5G">5G</option>
-            <option value="5H">5H</option>
-            <option value="6A">6A</option>
-            <option value="6B">6B</option>
-            <option value="6C">6C</option>
-            <option value="6D">6D</option>
-            <option value="6E">6E</option>
-            <option value="6F">6F</option>
-            <option value="6G">6G</option>
-            <option value="6H">6H</option>
-        </select>
-        <select id="turno" class="mt-4">
-            <option value="">Selecciona Turno</option>
-            <option value="Matutino">Matutino</option>
-            <option value="Vespertino">Vespertino</option>
-        </select>
+        <div class="subtitle">Proporciona un texto para crear el QR</div>
+        <div>
+            <label for="nombreAlumno">Nombre del Alumno:</label>
+            <input type="text" id="nombreAlumno" name="nombreAlumno">
+        </div>
+        <div>
+            <label for="numeroControl">Número de Control:</label>
+            <input type="text" id="numeroControl" name="numeroControl">
+        </div>
+        <div>
+            <label for="semestre">Semestre:</label>
+            <select id="semestre" name="semestre">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <div>
+            <label for="grupo">Grupo:</label>
+            <select id="grupo" name="grupo">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+            </select>
+        </div>
+        <div>
+            <label for="especialidad">Especialidad:</label>
+            <select id="especialidad" name="especialidad">
+                <option value="Enfermeria">Enfermería</option>
+                <option value="Radiologia">Radiología</option>
+            </select>
+        </div>
+        <input id="text" type="text" value="" class="mt-4" />
         <div class="buttons">
-            <button id="generate-button" class="btn" onclick="makeCode()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z"/></svg></button>  <!--  Generar QR (Play Button) -->
-            <button id="download-button" class="btn" disabled><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg></button>  <!--  Descargar QR (Download Button) -->
-          <!--   <button id="random-color-button" class="btn" onclick="setQRCodeColors()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"/></svg></button> -->  <!-- Color Aleatorio (Paint Bucket) -->
+            <button id="generate-button" class="btn" onclick="makeCode()"><svg xmlns="http://www.w3.org/2000/svg"
+                    height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                    <path
+                        d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z" />
+                </svg></button> <!--  Generar QR (Play Button) -->
+            <button id="download-button" class="btn" disabled><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                    viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                    <path
+                        d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" />
+                </svg></button> <!--  Descargar QR (Download Button) -->
+            <!--   <button id="random-color-button" class="btn" onclick="setQRCodeColors()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-80q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 32.5-156t88-127Q256-817 330-848.5T488-880q80 0 151 27.5t124.5 76q53.5 48.5 85 115T880-518q0 115-70 176.5T640-280h-74q-9 0-12.5 5t-3.5 11q0 12 15 34.5t15 51.5q0 50-27.5 74T480-80Zm0-400Zm-220 40q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120-160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm200 0q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17Zm120 160q26 0 43-17t17-43q0-26-17-43t-43-17q-26 0-43 17t-17 43q0 26 17 43t43 17ZM480-160q9 0 14.5-5t5.5-13q0-14-15-33t-15-57q0-42 29-67t71-25h70q66 0 113-38.5T800-518q0-121-92.5-201.5T488-800q-136 0-232 93t-96 227q0 133 93.5 226.5T480-160Z"/></svg></button> -->
+            <!-- Color Aleatorio (Paint Bucket) -->
         </div>
         <div id="qrcode"></div>
     </div>
@@ -207,8 +218,8 @@
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             width: 200,
             height: 200,
-            colorDark : "#000000",  // Color inicial por defecto
-            colorLight : "#ffffff"  // Fondo inicial por defecto
+            colorDark: "#000000",  // Color inicial por defecto
+            colorLight: "#ffffff"  // Fondo inicial por defecto
         });
 
         // Cambia los colores del QR, el fondo del body y del contenedor
@@ -239,13 +250,21 @@
 
         // Generar el código QR
         function makeCode() {
+            var nombreAlumno = document.getElementById('nombreAlumno').value;
+            var numeroControl = document.getElementById('numeroControl').value;
+            var semestre = document.getElementById('semestre').value;
+            var grupo = document.getElementById('grupo').value;
+            var especialidad = document.getElementById('especialidad').value;
+            var qrText = `No=${nombreAlumno}&ID=${numeroControl}&Gr=${semestre+grupo}$&Es=${especialidad}`;
+            var encodedQRText = encodeURIComponent(qrText);
+            document.getElementById("text").value =encodedQRText;
             var elText = document.getElementById("text");
             if (!elText.value) {
                 elText.focus();
                 return;
-            }
+            } 
             setQRCodeColors();  // Cambiar los colores aleatorios
-            qrcode.makeCode(elText.value);  // Generar el código QR con el nuevo valor
+            qrcode.makeCode(encodedQRText);  // Generar el código QR con el nuevo valor
             // Enable the download button after generating the QR code
             document.getElementById('download-button').disabled = false;
         }
@@ -278,4 +297,5 @@
         document.getElementById('download-button').addEventListener('click', downloadQR);
     </script>
 </body>
+
 </html>

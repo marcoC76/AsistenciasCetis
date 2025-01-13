@@ -29,76 +29,121 @@
     </head>
 
     <body>
+        <center>
 
-        <main class="wrapper" style="padding-top:2em">
 
-            <section class="container" id="demo-content">
-                <h1 class="title">Scanner QR</h1>
-                <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
-                <div class="container mx-auto p-4">
-                    <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del
-                        Profesor:</label>
-                    <input type="text" id="profesor" name="profesor"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required><br><br>
+            <main class="wrapper" style="padding-top:2em">
 
-                    <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
-                    <select id="periodo" name="periodo"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select><br><br>
+                <section class="container" id="demo-content">
+                    <h1 class="title">Scanner QR</h1>
+                    <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
+                    <div class="container mx-auto p-4">
+                        <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del
+                            Profesor:</label>
+                        <input type="text" id="profesor" name="profesor"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required><br><br>
 
-                    <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
-                    <select id="materia" name="materia"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                        <option value="matematicas">Matemáticas</option>
-                        <option value="fisica">Física</option>
-                        <option value="quimica">Química</option>
-                    </select><br><br>
-                    <!-- <p>
-                    <a class="button-small button-outline" href="../../index.html">HOME 🏡</a>
-                </p> -->
+                        <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
+                        <select id="periodo" name="periodo"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select><br><br>
 
-                    <!-- <p>This example shows how to scan a QR code with ZXing javascript library from the device video camera.
-                    If more than one video input devices are available (for example front and back camera) the example
-                    shows how to read them and use a select
-                    to change the input device.</p> -->
+                        <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
+                        <select id="materia" name="materia"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="lengua_comunicacion">Lengua y Comunicación I (UAC)</option>
+                            <option value="ingles_uac">Inglés I (UAC)</option>
+                            <option value="pensamiento_matematico">Pensamiento Matemático I (UAC)</option>
+                            <option value="cultura_digital">Cultura Digital I (UAC)</option>
+                            <option value="materia_interacciones">La materia y sus interacciones (UAC)</option>
+                            <option value="humanidades">Humanidades I (UAC)</option>
+                            <option value="ciencias_sociales">Ciencias Sociales I (UAC)</option>
+                            <option value="recursos_socioemocionales">Recursos Socioemocionales I (UAC)</option>
+                            <option value="algebra">Álgebra</option>
+                            <option value="leo_ei">L.E.O. y E. I</option>
+                            <option value="quimica">Química I</option>
+                            <option value="tic">Tec. de la Inf. y Comunicación</option>
+                            <option value="ingles">Inglés I</option>
+                            <option value="logica">Lógica</option>
+                            <option value="propedeutico_enfermeria">Propedéutico Enfermería</option>
+                            <option value="propedeutico_radiologia">Propedéutico Radiología</option>
+                            <option value="lengua_comunicacion_ii">Lengua y Comunicación II (UAC)</option>
+                            <option value="ingles_ii_uac">Inglés II (UAC)</option>
+                            <option value="pensamiento_matematico_ii">Pensamiento Matemático II (UAC)</option>
+                            <option value="cultura_digital_ii">Cultura Digital II (UAC)</option>
+                            <option value="conservacion_energia">La conservación de la energía y su (UAC)</option>
+                            <option value="ciencias_sociales_ii">Ciencias Sociales II (UAC)</option>
+                            <option value="recursos_socioemocionales_ii">Recursos Socioemocionales II (UAC)</option>
+                            <option value="geometria_trigonometria">Geometría y Trigonometría</option>
+                            <option value="leo_e_ii">L.E. O. y E. II</option>
+                            <option value="quimica_ii">Química II</option>
+                            <option value="ingles_ii">Inglés II</option>
+                            <option value="mod_i_sub_1_higiene_seguridad">Mod I Sub 1 Higiene y Seguridad</option>
+                            <option value="mod_i_sub_2_salud_comunitaria">Mod I Sub 2 Salud Comunitaria</option>
+                            <option value="mod_i_sub_1_proteccion_ionizantes">Mod I Sub I Protección Ionizantes</option>
+                            <option value="mod_i_sub_2_obtencion_imagen">Mod I Sub 2 Obtención de Imagen</option>
+                            <option value="lengua_comunicacion_iii">Lengua y Comunicación III (UAC)</option>
+                            <option value="ingles_iii_uac">Inglés III (UAC)</option>
+                            <option value="pensamiento_matematico_iii">Pensamiento Matemático III (UAC)</option>
+                            <option value="ecosistemas_interacciones">Ecosistemas, interacciones, energía y dinámica (UAC)</option>
+                            <option value="humanidades_ii">Humanidades II (UAC)</option>
+                            <option value="recursos_socioemocionales_iii">Recursos Socioemocionales III</option>
+                            <option value="geometria_analitica">Geometría Analítica</option>
+                            <option value="etica">Ética</option>
+                            <option value="ingles_iii">Inglés III</option>
+                            <option value="biologia">Biología</option>
+                            <option value="mod_ii_sub_1_patologia">Mod II Sub 1 Patología</option>
+                            <option value="mod_ii_sub_2_procedimientos_bases_eticas_legales">Mod II Sub 2 Procedimientos Bases Éticas y Legales</option>
+                            <option value="mod_ii_sub_1_estudios_radiograficos_simples">Mod II Sub I Estudios Radiográficos Simples</option>
+                            <option value="mod_ii_sub_2_requerimientos_anatomicos_diagnostico">Mod II Sub 2 Requerimientos anatómicos de diagnóstico</option>
+                        </select><br><br>
+                        <!-- <p>
+                        <a class="button-small button-outline" href="../../index.html">HOME 🏡</a>
+                    </p> -->
 
-                    <div>
-                        <a class="button" id="startButton">Leer qr</a>
-                        <a class="button" id="resetButton">Reset</a>
-                    </div>
+                        <!-- <p>This example shows how to scan a QR code with ZXing javascript library from the device video camera.
+                        If more than one video input devices are available (for example front and back camera) the example
+                        shows how to read them and use a select
+                        to change the input device.</p> -->
 
-                    <div id="video-container">
-                        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
-                    </div>
+                        <div>
+                            <a class="button" id="startButton">Leer qr</a>
+                            <a class="button" id="resetButton">Reset</a>
+                        </div>
 
-                    <div id="sourceSelectPanel" style="display:none">
-                        <label for="sourceSelect">Change video source:</label>
-                        <select id="sourceSelect" style="max-width:400px">
-                        </select>
-                    </div>
+                        <div id="video-container">
+                            <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+                        </div>
 
-                    <label>Resultado:</label>
-                    <blockquote>
-                        <p id="result"></p>
-                    </blockquote>
+                        <div id="sourceSelectPanel" style="display:none">
+                            <label for="sourceSelect">Change video source:</label>
+                            <select id="sourceSelect" style="max-width:400px">
+                            </select>
+                        </div>
 
-                    <!--                 <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/qr-camera/">source
-                        code</a> for this example.</p> -->
-            </section>
+                        <label>Resultado:</label>
+                        <blockquote>
+                            <p id="result"></p>
+                        </blockquote>
 
-            <footer class="footer">
-                <!-- <section class="container">
-                    <p>ZXing TypeScript Demo. Licensed under the <a target="_blank"
-                            href="https://github.com/zxing-js/library#license" title="MIT">MIT</a>.</p>
-                </section> -->
-            </footer>
+                        <!--                 <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/qr-camera/">source
+                            code</a> for this example.</p> -->
+                </section>
 
-        </main>
+                <footer class="footer">
+                    <!-- <section class="container">
+                        <p>ZXing TypeScript Demo. Licensed under the <a target="_blank"
+                                href="https://github.com/zxing-js/library#license" title="MIT">MIT</a>.</p>
+                    </section> -->
+                </footer>
+
+            </main>
+        </center>
+
 
         <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
@@ -111,23 +156,38 @@
                 var Pe = selectPeriodo.value;
                 var selectedValue = selectMateria.value;
 
-                if (selectedValue == "matematicas") {
-                    var url = 'https://script.google.com/macros/s/AKfycbxncA5XO5DbbYUZREjo1ntT7j0Th5nvTmODF5iwzc6FvpFcGbN3TZq0xDBtYDQBTkGf/exec?';
+
+                var url = 'https://script.google.com/macros/s/AKfycbzQpl5wbcf1-08txKhDkpQX5PnCMK_g8nSu3QXqjScNBjAU8DSetX1NwtC-zD1hLAGW/exec?';
+
+                const iframe = document.createElement('iframe');
+                iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                /* if (selectedValue == "quimica") {
+                    var url = 'https://script.google.com/macros/s/AKfycbwpcauPxYe3u4beWShRd2Tqjmsqc7xNhDKbdMCQRHkSCR_O9qbjxrP8gbYtatJ_E_5u/exec?';
 
                     const iframe = document.createElement('iframe');
-                    iframe.src = url + jsonEntrada + 'Pe=' + Pe + '&Pro=' + Pro;
+                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
                     iframe.style.display = 'none';
                     document.body.appendChild(iframe);
 
-                } else {
-                    var url = 'https://script.google.com/macros/s/AKfycbzu62QXB2DHUHNZo-815UNI0I22pgscE0w0CzR5WcmbFeYi_FaMxzuGZ4T_sshcz8y7lA/exec?';
+                } else if (selectedValue == "matematicas") {
+                    var url = 'https://script.google.com/macros/s/AKfycbwUJ_Wx9INcuyPf7pySFsVoWGjKDKCkEAvcn7RKLXnWnLKdzDVc_MKTHkCDlUVqYnO6/exec?';
 
                     const iframe = document.createElement('iframe');
-                    iframe.src = url + jsonEntrada + 'Pe=' + Pe + '&Pro=' + Pro;
+                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
                     iframe.style.display = 'none';
                     document.body.appendChild(iframe);
 
-                }
+                } else if (selectedValue == "fisica") {
+                    var url = 'https://script.google.com/macros/s/AKfycbzbb1Zhi0ia_qVn4He2tE0tP08x1T3rQbjTDXUSPYyqk19y6fURyj2u7TcLaT6AVgRy/exec?';
+
+                    const iframe = document.createElement('iframe');
+                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+
+                } */
                 //que se abra un iframe invisible con un link 
 
                 //que se abra un iframe invisible con un link 
