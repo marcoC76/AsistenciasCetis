@@ -1,144 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<html lang="en"> <!-- Define el idioma principal del documento como inglés -->
 
 <head>
-    <meta charset="UTF-8">
-    <title>QR Scanner</title>
-    <link rel="stylesheet" href="./style.css">
-
+    <meta charset="UTF-8"> <!-- Especifica la codificación de caracteres como UTF-8 -->
+    <title>QR Scanner</title> <!-- Título de la página que aparece en la pestaña del navegador -->
+    <link rel="stylesheet" href="./style.css"> <!-- Enlaza el archivo CSS externo para estilos -->
 </head>
 
-<body>
-    <!-- partial:index.partial.html -->
-    <!doctype html>
-    <html lang="en">
+<body> <!-- Inicia el cuerpo del documento HTML -->
+
+    <!doctype html> <!-- Declaración redundante del tipo de documento (ya se declaró arriba) -->
+    <html lang="en"> <!-- Etiqueta HTML redundante (ya se declaró arriba) -->
 
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8"> <!-- Especifica la codificación de caracteres como UTF-8 (redundante) -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="ZXing for JS">
-
-        <title>Qr scanner</title>
+        <!-- Configura la vista para dispositivos móviles -->
+        <meta name="author" content="ZXing for JS"> <!-- Define el autor de la página -->
+        <title>Qr scanner</title> <!-- Título de la página (redundante) -->
         <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
             href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+        <!-- Precarga la fuente Roboto de Google Fonts -->
         <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
             href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
+        <!-- Precarga el archivo CSS de normalización -->
         <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
             href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
-        <link rel="stylesheet" href="style.css">
+        <!-- Precarga el framework CSS Milligram -->
+        <link rel="stylesheet" href="style.css"> <!-- Enlaza el archivo CSS externo para estilos (redundante) -->
     </head>
 
-    <body>
-        <center>
+    <body> <!-- Inicia el cuerpo del documento HTML (redundante) -->
+        <center> <!-- Centra el contenido (obsoleto, se recomienda usar CSS en su lugar) -->
 
+            <main class="wrapper" style="padding-top:2em"> <!-- Contenedor principal con estilo de padding superior -->
+                <section class="container" id="demo-content"> <!-- Sección que contiene el contenido principal -->
+                    <h1 class="title">Scanner QR</h1> <!-- Título principal de la sección -->
+                    <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1> <!-- Subtítulo centrado -->
+                    <div class="container mx-auto p-4"> <!-- Contenedor con margen automático y padding -->
 
-            <main class="wrapper" style="padding-top:2em">
-
-                <section class="container" id="demo-content">
-                    <h1 class="title">Scanner QR</h1>
-                    <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1>
-                    <div class="container mx-auto p-4">
-                        <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Nombre del
-                            Profesor:</label>
-                        <input type="text" id="profesor" name="profesor"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required><br><br>
+                        <label for="profesor" class="block text-gray-700 text-sm font-bold mb-2">Profesor:</label>
+                        <!-- Etiqueta para el selector de profesor -->
+                        <select id="profesor" name="profesor"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <!-- Selector de profesor -->
+                            <option value="Igor">Igor</option> <!-- Opción 1 -->
+                            <option value="Marco">Marco</option> <!-- Opción 2 -->
+                            <option value="Miguel">Miguel</option> <!-- Opción 3 -->
+                        </select><br><br> <!-- Salto de línea doble -->
 
                         <label for="periodo" class="block text-gray-700 text-sm font-bold mb-2">Periodo:</label>
+                        <!-- Etiqueta para el selector de período -->
                         <select id="periodo" name="periodo"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select><br><br>
+                            <!-- Selector de período -->
+                            <option value="1">1</option> <!-- Opción 1 -->
+                            <option value="2">2</option> <!-- Opción 2 -->
+                            <option value="3">3</option> <!-- Opción 3 -->
+                        </select><br><br> <!-- Salto de línea doble -->
 
                         <label for="materia" class="block text-gray-700 text-sm font-bold mb-2">Materia:</label>
+                        <!-- Etiqueta para el selector de materia -->
                         <select id="materia" name="materia"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="lengua_comunicacion">Lengua y Comunicación I (UAC)</option>
-                            <option value="ingles_uac">Inglés I (UAC)</option>
-                            <option value="pensamiento_matematico">Pensamiento Matemático I (UAC)</option>
-                            <option value="cultura_digital">Cultura Digital I (UAC)</option>
-                            <option value="materia_interacciones">La materia y sus interacciones (UAC)</option>
-                            <option value="humanidades">Humanidades I (UAC)</option>
-                            <option value="ciencias_sociales">Ciencias Sociales I (UAC)</option>
-                            <option value="recursos_socioemocionales">Recursos Socioemocionales I (UAC)</option>
-                            <option value="algebra">Álgebra</option>
-                            <option value="leo_ei">L.E.O. y E. I</option>
-                            <option value="quimica">Química I</option>
-                            <option value="tic">Tec. de la Inf. y Comunicación</option>
-                            <option value="ingles">Inglés I</option>
-                            <option value="logica">Lógica</option>
-                            <option value="propedeutico_enfermeria">Propedéutico Enfermería</option>
-                            <option value="propedeutico_radiologia">Propedéutico Radiología</option>
-                            <option value="lengua_comunicacion_ii">Lengua y Comunicación II (UAC)</option>
-                            <option value="ingles_ii_uac">Inglés II (UAC)</option>
-                            <option value="pensamiento_matematico_ii">Pensamiento Matemático II (UAC)</option>
-                            <option value="cultura_digital_ii">Cultura Digital II (UAC)</option>
-                            <option value="conservacion_energia">La conservación de la energía y su (UAC)</option>
-                            <option value="ciencias_sociales_ii">Ciencias Sociales II (UAC)</option>
-                            <option value="recursos_socioemocionales_ii">Recursos Socioemocionales II (UAC)</option>
-                            <option value="geometria_trigonometria">Geometría y Trigonometría</option>
-                            <option value="leo_e_ii">L.E. O. y E. II</option>
-                            <option value="quimica_ii">Química II</option>
-                            <option value="ingles_ii">Inglés II</option>
-                            <option value="mod_i_sub_1_higiene_seguridad">Mod I Sub 1 Higiene y Seguridad</option>
-                            <option value="mod_i_sub_2_salud_comunitaria">Mod I Sub 2 Salud Comunitaria</option>
-                            <option value="mod_i_sub_1_proteccion_ionizantes">Mod I Sub I Protección Ionizantes</option>
-                            <option value="mod_i_sub_2_obtencion_imagen">Mod I Sub 2 Obtención de Imagen</option>
-                            <option value="lengua_comunicacion_iii">Lengua y Comunicación III (UAC)</option>
-                            <option value="ingles_iii_uac">Inglés III (UAC)</option>
-                            <option value="pensamiento_matematico_iii">Pensamiento Matemático III (UAC)</option>
-                            <option value="ecosistemas_interacciones">Ecosistemas, interacciones, energía y dinámica (UAC)</option>
-                            <option value="humanidades_ii">Humanidades II (UAC)</option>
-                            <option value="recursos_socioemocionales_iii">Recursos Socioemocionales III</option>
-                            <option value="geometria_analitica">Geometría Analítica</option>
-                            <option value="etica">Ética</option>
-                            <option value="ingles_iii">Inglés III</option>
-                            <option value="biologia">Biología</option>
-                            <option value="mod_ii_sub_1_patologia">Mod II Sub 1 Patología</option>
-                            <option value="mod_ii_sub_2_procedimientos_bases_eticas_legales">Mod II Sub 2 Procedimientos Bases Éticas y Legales</option>
-                            <option value="mod_ii_sub_1_estudios_radiograficos_simples">Mod II Sub I Estudios Radiográficos Simples</option>
-                            <option value="mod_ii_sub_2_requerimientos_anatomicos_diagnostico">Mod II Sub 2 Requerimientos anatómicos de diagnóstico</option>
-                        </select><br><br>
-                        <!-- <p>
-                        <a class="button-small button-outline" href="../../index.html">HOME 🏡</a>
-                    </p> -->
+                            <!-- Selector de materia -->
 
-                        <!-- <p>This example shows how to scan a QR code with ZXing javascript library from the device video camera.
-                        If more than one video input devices are available (for example front and back camera) the example
-                        shows how to read them and use a select
-                        to change the input device.</p> -->
+                            <option value="ingles_ii_uac">Inglés II (UAC)</option> <!-- Opción 1 -->
+                            <option value="pensamiento_matematico_ii">Pensamiento Matemático II (UAC)</option>
+                            <!-- Opción 2 -->
+                            <option value="cultura_digital_ii">Cultura Digital II (UAC)</option> <!-- Opción 3 -->
+                            <option value="conservacion_energia">La conservación de la energía y su (UAC)</option>
+                            <!-- Opción 4 -->
+                            <option value="ciencias_sociales_ii">Ciencias Sociales II (UAC)</option> <!-- Opción 5 -->
+
+                        </select><br><br> <!-- Salto de línea doble -->
+
 
                         <div>
-                            <a class="button" id="startButton">Leer qr</a>
-                            <a class="button" id="resetButton">Reset</a>
+                            <a class="button" id="startButton">Leer qr</a> <!-- Botón para iniciar la lectura del QR -->
+                            <a class="button" id="resetButton">Reset</a> <!-- Botón para resetear el escáner -->
                         </div>
 
-                        <div id="video-container">
+                        <div id="video-container"> <!-- Contenedor para el video del escáner -->
                             <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+                            <!-- Elemento de video para mostrar la cámara -->
                         </div>
 
                         <div id="sourceSelectPanel" style="display:none">
+                            <!-- Panel para seleccionar la fuente de video (oculto por defecto) -->
                             <label for="sourceSelect">Change video source:</label>
-                            <select id="sourceSelect" style="max-width:400px">
+                            <!-- Etiqueta para el selector de fuente de video -->
+                            <select id="sourceSelect" style="max-width:400px"> <!-- Selector de fuente de video -->
                             </select>
                         </div>
 
-                        <label>Resultado:</label>
+                        <label>Resultado:</label> <!-- Etiqueta para mostrar el resultado del escaneo -->
                         <blockquote>
-                            <p id="result"></p>
+                            <p id="result"></p> <!-- Elemento para mostrar el texto del QR escaneado -->
                         </blockquote>
 
-                        <!--                 <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/qr-camera/">source
-                            code</a> for this example.</p> -->
+
                 </section>
 
-                <footer class="footer">
-                    <!-- <section class="container">
-                        <p>ZXing TypeScript Demo. Licensed under the <a target="_blank"
-                                href="https://github.com/zxing-js/library#license" title="MIT">MIT</a>.</p>
-                    </section> -->
+                <footer class="footer"> <!-- Pie de página -->
+
                 </footer>
 
             </main>
@@ -146,125 +111,100 @@
 
 
         <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+        <!-- Incluye la librería ZXing para escanear QR -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
+        <!-- Incluye la librería Howler.js para reproducir sonidos -->
         <script type="text/javascript">
-            const selectMateria = document.getElementById('materia');
-            const selectPeriodo = document.getElementById('periodo');
-            var jsonEntrada;
-            function handleClick() {
-                var Pro = document.getElementById('profesor').value;
-                var Pe = selectPeriodo.value;
-                var selectedValue = selectMateria.value;
+            const selectMateria = document.getElementById('materia'); // Obtiene el elemento select de materia
+            const selectPeriodo = document.getElementById('periodo'); // Obtiene el elemento select de período
+            const selectProfesor = document.getElementById('profesor'); // Obtiene el elemento select de profesor
+            var textContent; // Variable para almacenar el contenido de texto
+            function handleClick() { // Función para manejar el clic en el botón de leer QR
+                var Pro = selectProfesor.value; // Obtiene el valor seleccionado del profesor
+                var Pe = selectPeriodo.value; // Obtiene el valor seleccionado del período
+                var selectedValue = selectMateria.value; // Obtiene el valor seleccionado de la materia
 
+                var url = 'https://script.google.com/macros/s/AKfycbwkfmGu3z0ApwRFCyZlidNpaQUNgP-f4INEl5BMkUnFDbE_S7dU3ikFvupkHNyx8zDd/exec?'; // URL del script de Google Apps
 
-                var url = 'https://script.google.com/macros/s/AKfycbwkfmGu3z0ApwRFCyZlidNpaQUNgP-f4INEl5BMkUnFDbE_S7dU3ikFvupkHNyx8zDd/exec?';
-
-                const iframe = document.createElement('iframe');
-                iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
-                /* if (selectedValue == "quimica") {
-                    var url = 'https://script.google.com/macros/s/AKfycbwpcauPxYe3u4beWShRd2Tqjmsqc7xNhDKbdMCQRHkSCR_O9qbjxrP8gbYtatJ_E_5u/exec?';
-
-                    const iframe = document.createElement('iframe');
-                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-
-                } else if (selectedValue == "matematicas") {
-                    var url = 'https://script.google.com/macros/s/AKfycbwUJ_Wx9INcuyPf7pySFsVoWGjKDKCkEAvcn7RKLXnWnLKdzDVc_MKTHkCDlUVqYnO6/exec?';
-
-                    const iframe = document.createElement('iframe');
-                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-
-                } else if (selectedValue == "fisica") {
-                    var url = 'https://script.google.com/macros/s/AKfycbzbb1Zhi0ia_qVn4He2tE0tP08x1T3rQbjTDXUSPYyqk19y6fURyj2u7TcLaT6AVgRy/exec?';
-
-                    const iframe = document.createElement('iframe');
-                    iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue;
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-
-                } */
-                //que se abra un iframe invisible con un link 
-
-                //que se abra un iframe invisible con un link 
-
-
+                const iframe = document.createElement('iframe'); // Crea un elemento iframe
+                iframe.src = url + jsonEntrada + '&Pe=' + Pe + '&Pro=' + Pro + '&Ma=' + selectedValue; // Establece la fuente del iframe con los datos del formulario
+                iframe.style.display = 'none'; // Oculta el iframe
+                document.body.appendChild(iframe); // Añade el iframe al cuerpo del documento
+                console.log(iframe.src); // Muestra la URL del iframe en la consola
+                document.getElementById('result').textContent += " Asistencia registrada"; // Muestra el mensaje de asistencia registrada
+                document.getElementById('result').style.color = "green"; // Cambia el color del mensaje a verde
             }
-            window.addEventListener('load', function () {
-                let selectedDeviceId;
-                const codeReader = new ZXing.BrowserQRCodeReader()
-                console.log('ZXing code reader initialized')
-                codeReader.getVideoInputDevices()
+            window.addEventListener('load', function () { // Espera a que la página se cargue completamente
+                let selectedDeviceId; // Variable para almacenar el ID del dispositivo de video seleccionado
+                const codeReader = new ZXing.BrowserQRCodeReader() // Crea una instancia del lector de QR
+                console.log('ZXing code reader initialized') // Muestra un mensaje en la consola indicando que el lector de QR se ha inicializado
+                codeReader.getVideoInputDevices() // Obtiene los dispositivos de video disponibles
                     .then((videoInputDevices) => {
-                        let videoIndex = 0;
+                        let videoIndex = 0; // Índice para recorrer los dispositivos de video
 
-
-
-                        if (videoInputDevices.length >= 1) {
+                        if (videoInputDevices.length >= 1) { // Si hay al menos un dispositivo de video
                             videoInputDevices.forEach((element) => {
-                                console.log(element);
+                                console.log(element); // Muestra cada dispositivo de video en la consola
                             })
-                            const sourceSelect = document.getElementById('sourceSelect')
+                            const sourceSelect = document.getElementById('sourceSelect') // Obtiene el elemento select de fuente de video
 
                             // videoIndex = 1
-                            console.log(videoInputDevices.length);
-                            let length = videoInputDevices.length - 1;
+                            console.log(videoInputDevices.length); // Muestra el número de dispositivos de video en la consola
+                            let length = videoInputDevices.length - 1; // Calcula el índice del último dispositivo de video
 
-                            if (videoInputDevices[length].deviceId) {
-                                selectedDeviceId = videoInputDevices[length].deviceId;
-                                document.getElementById('startButton').addEventListener('click', () => {
-                                    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
-                                        console.log(result)
-                                        document.getElementById('result').textContent = result.text
-                                        jsonEntrada = result.text
+                            if (videoInputDevices[length].deviceId) { // Si el último dispositivo de video tiene un ID
+                                selectedDeviceId = videoInputDevices[length].deviceId; // Selecciona el último dispositivo de video
+                                document.getElementById('startButton').addEventListener('click', () => { // Añade un evento de clic al botón de inicio
+                                    codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => { // Decodifica el QR desde el dispositivo de video seleccionado
+                                        console.log(result) // Muestra el resultado en la consola
+                                        document.getElementById('result').textContent = result.text // Muestra el texto del QR en el elemento result
+                                        jsonEntrada = result.text // Almacena el texto del QR en la variable jsonEntrada
 
-                                        var sound = new Howl({
-                                            src: ['https://marcoc76.github.io/audios/a-sudden-appearance-143034.mp3']
+                                        var sound = new Howl({ // Crea un nuevo sonido usando Howler.js
+                                            src: ['https://marcoc76.github.io/audios/a-sudden-appearance-143034.mp3'] // URL del archivo de sonido
                                         });
 
-                                        sound.play();
-                                        handleClick();
-                                        codeReader.reset();
-                                    }).catch((err) => {
-                                        console.error(err)
-                                        document.getElementById('result').textContent = err
+                                        sound.play(); // Reproduce el sonido
+                                        handleClick(); // Llama a la función handleClick para procesar el resultado
+                                        codeReader.reset(); // Resetea el lector de QR
+                                        
+
+                                    }).catch((err) => { // Captura cualquier error
+                                        console.error(err) // Muestra el error en la consola
+                                        document.getElementById('result').textContent = err // Muestra el error en el elemento result
                                     })
 
-                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`) // Muestra un mensaje en la consola indicando que se ha iniciado la decodificación
                                 })
-                            } else {
-                                document.getElementById('startButton').addEventListener('click', () => {
-                                    codeReader.decodeFromInputVideoDevice(undefined, 'video').then((result) => {
-                                        console.log(result)
-                                        document.getElementById('result').textContent = result.text
-                                        var sound = new Howl({
-                                            src: ['https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/jg-032316-sfx-elearning-correct-answer-sound-1.mp3']
+                            } else { // Si no hay un ID de dispositivo de video
+                                document.getElementById('startButton').addEventListener('click', () => { // Añade un evento de clic al botón de inicio
+                                    codeReader.decodeFromInputVideoDevice(undefined, 'video').then((result) => { // Decodifica el QR sin un dispositivo de video específico
+                                        console.log(result) // Muestra el resultado en la consola
+                                        document.getElementById('result').textContent = result.text // Muestra el texto del QR en el elemento result
+                                        var sound = new Howl({ // Crea un nuevo sonido usando Howler.js
+                                            src: ['https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/jg-032316-sfx-elearning-correct-answer-sound-1.mp3'] // URL del archivo de sonido
                                         });
 
-                                        sound.play();
-                                    }).catch((err) => {
-                                        console.error(err)
-                                        document.getElementById('result').textContent = err
+                                        sound.play(); // Reproduce el sonido
+                                    }).catch((err) => { // Captura cualquier error
+                                        console.error(err) // Muestra el error en la consola
+                                        document.getElementById('result').textContent = err // Muestra el error en el elemento result
                                     })
 
-                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                    console.log(`Started continous decode from camera with id ${selectedDeviceId}`) // Muestra un mensaje en la consola indicando que se ha iniciado la decodificación
                                 })
                             }
-                            console.log(length);
-                            console.log(selectedDeviceId);
+                            console.log(length); // Muestra el índice del último dispositivo de video en la consola
+                            console.log(selectedDeviceId); // Muestra el ID del dispositivo de video seleccionado en la consola
                         }
 
-                        document.getElementById('resetButton').addEventListener('click', () => {
-                            codeReader.reset()
-                            console.log('Reset.')
+                        document.getElementById('resetButton').addEventListener('click', () => { // Añade un evento de clic al botón de reset
+                            codeReader.reset() // Resetea el lector de QR
+                            console.log('Reset.') // Muestra un mensaje en la consola indicando que se ha reseteado
                         })
                     })
-                    .catch((err) => {
-                        console.error(err)
+                    .catch((err) => { // Captura cualquier error
+                        console.error(err) // Muestra el error en la consola
                     })
             })
         </script>
@@ -272,9 +212,10 @@
     </body>
 
     </html>
-    <!-- partial -->
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js'></script>
-    <script src="./script.js"></script>
+    <!-- Incluye la librería Howler.js para reproducir sonidos (redundante) -->
+    <script src="./script.js"></script> <!-- Enlaza el archivo JavaScript externo -->
 
 </body>
 
