@@ -1,0 +1,50 @@
+{
+    "profesores": [
+        {
+            "value": "Igor",
+            "text": "Igor"
+        },
+        {
+            "value": "Marco",
+            "text": "Marco"
+        },
+        {
+            "value": "Miguel",
+            "text": "Miguel"
+        },
+        {
+            "value": "Ricardo",
+            "text": "Ricardo"
+        },
+        {
+            "value": "Sergio",
+            "text": "Sergio"
+        }
+    ],
+    "materias": [
+        {
+            "value": "ingles_ii_uac",
+            "text": "Inglés II (UAC)"
+        },
+        {
+            "value": "pensamiento_matematico_ii",
+            "text": "Pensamiento Matemático II (UAC)"
+        },
+        {
+            "value": "cultura_digital_ii",
+            "text": "Cultura Digital II (UAC)"
+        },
+        {
+            "value": "conservacion_energia",
+            "text": "La conservación de la energía y su (UAC)"
+        },
+        {
+            "value": "ciencias_sociales_ii",
+            "text": "Ciencias Sociales II (UAC)"
+        },
+        {
+            "value": "biologia_ii",
+            "text": "Biología II (UAC)"
+        }
+    ]
+}
