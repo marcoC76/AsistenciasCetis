@@ -1,0 +1,16 @@
+{
+    "colores": [
+        {
+            "qrColor": "#000000",
+            "bgColor": "#ffffff"
+        } ,
+        {
+            "qrColor": "#EFD27C",
+            "bgColor": "#350C74"
+        },
+        {
+            "qrColor": "#3C1946",
+            "bgColor": "#CAD6B2"
+        } 
+    ]
+}
