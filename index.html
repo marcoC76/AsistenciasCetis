@@ -215,6 +215,24 @@
     <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/qrcode.js"></script>
     <script>
+        document.getElementById('nombreAlumno').addEventListener('input', checkFields);
+        document.getElementById('numeroControl').addEventListener('input', checkFields);
+        document.getElementById('grupo').addEventListener('input', checkFields);
+        document.getElementById('especialidad').addEventListener('input', checkFields);
+
+        // Inicialmente deshabilitar los botones
+        checkFields();
+        function checkFields() {
+            const nombreAlumno = document.getElementById('nombreAlumno').value.trim();
+            const numeroControl = document.getElementById('numeroControl').value.trim();
+            const grupo = document.getElementById('grupo').value.trim();
+            const especialidad = document.getElementById('especialidad').value.trim();
+
+            const allFieldsFilled = nombreAlumno && numeroControl && grupo && especialidad;
+
+            document.getElementById('generate-button').disabled = !allFieldsFilled;
+            document.getElementById('download-button').disabled = !allFieldsFilled;
+        }
         // Cargar el archivo colores.json
         fetch('colores.json')
             .then(response => response.json())
@@ -277,7 +295,7 @@
                 }
 
                 // Generar el primer QR
-               /*  makeCode(); */
+                /*  makeCode(); */
 
                 // Añadir eventos para generar el QR al presionar enter o al perder el foco
                 $("#text").on("blur", function () {

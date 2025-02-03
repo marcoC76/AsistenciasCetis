@@ -20,12 +20,12 @@
     <script src="datos.json"></script> <!-- Incluye el archivo JSON con los datos de los estudiantes -->
 </head>
 
-<body> <!-- Inicia el cuerpo del documento HTML (redundante) -->
+<body > <!-- Inicia el cuerpo del documento HTML (redundante) -->
     <center> <!-- Centra el contenido (obsoleto, se recomienda usar CSS en su lugar) -->
 
-        <main class="wrapper" style="padding-top:2em"> <!-- Contenedor principal con estilo de padding superior -->
-            <section class="container" id="demo-content"> <!-- Sección que contiene el contenido principal -->
-                <h1 class="title">Scanner QR</h1> <!-- Título principal de la sección -->
+        <main class="wrapper " style="padding-top:2em"> <!-- Contenedor principal con estilo de padding superior -->
+            <section class="container " id="demo-content"> <!-- Sección que contiene el contenido principal -->
+                <h1 class="title text-red-700">Scanner QR</h1> <!-- Título principal de la sección -->
                 <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1> <!-- Subtítulo centrado -->
                 <div class="container mx-auto p-4"> <!-- Contenedor con margen automático y padding -->
 
@@ -107,6 +107,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
     <!-- Incluye la librería Howler.js para reproducir sonidos -->
     <script type="text/javascript">
+        
         fetch('datos.json')
             .then(response => response.json())
             .then(data => {
