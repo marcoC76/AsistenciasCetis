@@ -19,6 +19,18 @@
         {
             "value": "Sergio",
             "text": "Sergio"
+        },
+        {
+            "value": "Salomon",
+            "text": "Salomon"
+        },
+        {
+            "value": "Manuel",
+            "text": "Manuel"
+        },
+        {
+            "value": "Baruch",
+            "text": "Baruch"
         }
     ],
     "materias": [
@@ -45,6 +57,10 @@
         {
             "value": "biologia_ii",
             "text": "Biología II (UAC)"
-        }
+        },
+        {
+            "value": "temas_selectos_matematicas",
+            "text": "Temas Selectos de Matematicas"
+        }	
     ]
 }

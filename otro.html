@@ -5,7 +5,7 @@
     <meta charset="utf-8"> <!-- Especifica la codificación de caracteres como UTF-8 (redundante) -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Configura la vista para dispositivos móviles -->
-    <meta name="author" content="ZXing for JS"> <!-- Define el autor de la página -->
+    <meta name="author" content="Marko"> <!-- Define el autor de la página -->
     <title>Qr scanner</title> <!-- Título de la página (redundante) -->
     <link rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
         href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
@@ -155,7 +155,7 @@
         window.addEventListener('load', function () {
             let selectedDeviceId;
             const codeReader = new ZXing.BrowserQRCodeReader()
-            console.log('ZXing code reader initialized')
+            console.log('Marko code reader initialized')
             codeReader.getVideoInputDevices()
                 .then((videoInputDevices) => {
                     let videoIndex = 0;
@@ -198,7 +198,7 @@
                                     console.log(result)
                                     document.getElementById('result').textContent = result.text
                                     var sound = new Howl({
-                                        src: ['https://d1490khl9dq1ow.cloudfront.net/sfx/mp3preview/jg-032316-sfx-elearning-correct-answer-sound-1.mp3']
+                                        src: ['https://github.com/marcoC76/audios/raw/refs/heads/main/error.mp3']
                                     });
 
                                     sound.play();
