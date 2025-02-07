@@ -70,8 +70,15 @@
       ]
     };
 
+    // Función para ordenar alfabéticamente los arrays por el campo "text"
+    function sortData() {
+      data.profesores.sort((a, b) => a.text.localeCompare(b.text));
+      data.materias.sort((a, b) => a.text.localeCompare(b.text));
+    }
+
     // Actualiza la vista previa y el área de entrada del JSON
     function updatePreview() {
+      sortData();
       const formattedJson = JSON.stringify(data, null, 2);
       document.getElementById('jsonPreview').value = formattedJson;
       document.getElementById('jsonInput').value = formattedJson;

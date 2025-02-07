@@ -151,8 +151,20 @@
         <div class="title">Generador de QR</div>
         <div class="subtitle">Proporciona un texto para crear el QR</div>
         <div>
-            <label for="nombreAlumno">Nombre del Alumno:</label>
-            <input type="text" id="nombreAlumno" name="nombreAlumno">
+            <div class="form-group">
+                <label for="apellidoPaterno">Apellido Paterno:</label>
+                <input type="text" class="form-control" id="apellidoPaterno" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apellidoMaterno">Apellido Materno:</label>
+                <input type="text" class="form-control" id="apellidoMaterno" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombres">Nombre(s):</label>
+                <input type="text" class="form-control" id="nombres" required>
+            </div>
         </div>
         <div>
             <label for="numeroControl">Número de Control:</label>
@@ -215,20 +227,38 @@
     <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/baroninn/qrcodejs@master/qrcode.js"></script>
     <script>
-        document.getElementById('nombreAlumno').addEventListener('input', checkFields);
+        document.getElementById('apellidoPaterno').addEventListener('input', checkFields);
+        document.getElementById('apellidoMaterno').addEventListener('input', checkFields);
+        document.getElementById('nombres').addEventListener('input', checkFields);
         document.getElementById('numeroControl').addEventListener('input', checkFields);
         document.getElementById('grupo').addEventListener('input', checkFields);
         document.getElementById('especialidad').addEventListener('input', checkFields);
 
+
+       
         // Inicialmente deshabilitar los botones
         checkFields();
+
+        function generarNombreCompleto() {
+            const apellidoPaterno = document.getElementById('apellidoPaterno').value.trim();
+            const apellidoMaterno = document.getElementById('apellidoMaterno').value.trim();
+            const nombres = document.getElementById('nombres').value.trim();
+
+            return `${apellidoPaterno} ${apellidoMaterno} ${nombres}`;
+        }
+
+
+
+
         function checkFields() {
-            const nombreAlumno = document.getElementById('nombreAlumno').value.trim();
+            const apellidoPaterno = document.getElementById('apellidoPaterno').value.trim();
+            const apellidoMaterno = document.getElementById('apellidoMaterno').value.trim();
+            const nombres = document.getElementById('nombres').value.trim();
             const numeroControl = document.getElementById('numeroControl').value.trim();
             const grupo = document.getElementById('grupo').value.trim();
             const especialidad = document.getElementById('especialidad').value.trim();
 
-            const allFieldsFilled = nombreAlumno && numeroControl && grupo && especialidad;
+            const allFieldsFilled = apellidoPaterno && apellidoMaterno && nombres && numeroControl && grupo && especialidad;
 
             document.getElementById('generate-button').disabled = !allFieldsFilled;
             document.getElementById('download-button').disabled = !allFieldsFilled;
@@ -275,11 +305,11 @@
 
                 // Función para generar el código QR
                 function makeCode() {
-                    var nombreAlumno = document.getElementById('nombreAlumno').value;
+                    var nombreCompleto = generarNombreCompleto();
                     var numeroControl = document.getElementById('numeroControl').value;
                     var grupo = document.getElementById('grupo').value;
                     var especialidad = document.getElementById('especialidad').value;
-                    var qrText = `No=${nombreAlumno}&ID=${numeroControl}&Gr=${grupo}&Es=${especialidad}`;
+                    var qrText = `No=${nombreCompleto}&ID=${numeroControl}&Gr=${grupo}&Es=${especialidad}`;
                     var encodedQRText = encodeURIComponent(qrText);
 
                     // Utilizar la API de QRServer para generar el código QR
@@ -309,7 +339,7 @@
                 // Function to download the QR image
                 function downloadQR() {
                     const qrImage = document.getElementById("qrcode").getElementsByTagName("img")[0];
-                    const nombreAlumno = document.getElementById('nombreAlumno').value;
+                  
                     const nombreSinEspacios = nombreAlumno.replace(/ /g, ''); // Eliminar espacios
                     const nombreSinAcentos = nombreSinEspacios.normalize("NFD").replace(/[\u0300-\u036f]/g, ''); // Eliminar acentos
                     const nombreSinÑ = nombreSinAcentos.replace(/ñ/g, 'n'); // Reemplazar ñ por n
@@ -327,6 +357,7 @@
             })
             .catch(error => console.error('Error cargando colores.json:', error));
     </script>
+
 </body>
 
 </html>
