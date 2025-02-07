@@ -26,7 +26,7 @@
 
         <main class="wrapper " style="padding-top:2em"> <!-- Contenedor principal con estilo de padding superior -->
             <section class="container " id="demo-content"> <!-- Sección que contiene el contenido principal -->
-                 <h1 class="title text-blue-200">AulaCheck beta 1.0</h1> <!-- Título principal de la sección -->
+                 <h1 class="title text-blue-200">AulaScan beta 1.0</h1> <!-- Título principal de la sección -->
                 <!-- <h1 class="text-3xl font-bold text-center">Carga de Asistencia</h1> --> <!-- Subtítulo centrado -->
                 <div class="container mx-auto p-4 block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm 0 dark:bg-gray-800 dark:border-gray-700 "> <!-- Contenedor con margen automático y padding -->
                     <div id="video-container"> <!-- Contenedor para el video del escáner -->
@@ -82,7 +82,7 @@
 
                     <div id="sourceSelectPanel" style="display:none">
                         <!-- Panel para seleccionar la fuente de video (oculto por defecto) -->
-                        <label for="sourceSelect">Change video source:</label>
+                        <label for="sourceSelect">Fuente de video cambiada:</label>
                         <!-- Etiqueta para el selector de fuente de video -->
                         <select id="sourceSelect" style="max-width:400px"> <!-- Selector de fuente de video -->
                         </select>
@@ -157,7 +157,7 @@
         window.addEventListener('load', function () {
             let selectedDeviceId;
             const codeReader = new ZXing.BrowserQRCodeReader()
-            console.log('Marko code reader initialized')
+            console.log('aulaCheck inicado')
             codeReader.getVideoInputDevices()
                 .then((videoInputDevices) => {
                     let videoIndex = 0;
@@ -192,7 +192,7 @@
                                     document.getElementById('result').textContent = err
                                 })
 
-                                console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                console.log(`Comenzó la decodificación continua desde la cámara con ${selectedDeviceId}`)
                             })
                         } else {
                             document.getElementById('startButton').addEventListener('click', () => {
@@ -209,7 +209,7 @@
                                     document.getElementById('result').textContent = err
                                 })
 
-                                console.log(`Started continous decode from camera with id ${selectedDeviceId}`)
+                                console.log(`Se inició la decodificación continua desde la cámara con el id ${selectedDeviceId}`)
                             })
                         }
                         console.log(length);

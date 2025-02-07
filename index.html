@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de QR</title>
+    <title>aulaPass</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- agregar el json de colores.json -->
     <script src="colores.json"></script>
@@ -18,6 +18,13 @@
             margin: 0;
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
+            -webkit-user-select: none;
+            /* Chrome, Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE 10+ */
+            user-select: none;
         }
 
         @keyframes gradient {
@@ -148,8 +155,8 @@
 
 <body>
     <div class="container" id="qr-container">
-        <div class="title">Generador de QR</div>
-        <div class="subtitle">Proporciona un texto para crear el QR</div>
+        <div class="title">aulaPass beta 1.0</div>
+        <!-- <div class="subtitle">Proporciona un texto para crear el QR</div> -->
         <div>
             <div class="form-group">
                 <label for="apellidoPaterno">Apellido Paterno:</label>
