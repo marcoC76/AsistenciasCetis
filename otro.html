@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"> <!-- Especifica la codificación de caracteres como UTF-8 (redundante) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Configura la vista para dispositivos móviles -->
     <meta name="author" content="Marko"> <!-- Define el autor de la página -->
     <title>aulaScan</title> <!-- Título de la página (redundante) -->
@@ -19,6 +19,17 @@
     <!-- <link rel="stylesheet" href="style.css"> --> <!-- Enlaza el archivo CSS externo para estilos (redundante) -->
     <script src="datos.json"></script> <!-- Incluye el archivo JSON con los datos de los estudiantes -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+         body {
+            -webkit-user-select: none;
+            /* Chrome, Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE 10+ */
+            user-select: none;
+        }
+    </style>
 </head>
 
 <body class="bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10"> <!-- Inicia el cuerpo del documento HTML (redundante) -->
