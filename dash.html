@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de Asistencias de Alumnos por Materia y Maestro</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Estilos personalizados para mejorar la UX */
+    .table-container { max-height: 500px; overflow-y: auto; }
+    .sortable:hover { cursor: pointer; color: #1d4ed8; }
+    .loading-spinner { animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    /* Estilo para el summary */
+    summary { cursor: pointer; outline: none; }
+    /* Ajuste de espaciado para detalles anidados */
+    .nested-details { margin-left: 1rem; margin-bottom: 1rem; }
+    /* Estilo para los íconos de ordenación */
+    .sort-icon { margin-left: 0.5rem; font-size: 0.75rem; }
+  </style>
+</head>
+<body class="bg-gray-200 text-gray-900 font-sans">
+  <div class="container mx-auto p-6">
+    <!-- Título principal con mejor tipografía -->
+    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Registro de Asistencias de Alumnos por Materia y Maestro</h1>
+
+    <!-- Barra de herramientas: filtros por materia y maestro -->
+    <div class="mb-6 flex flex-col sm:flex-row gap-4">
+      <select id="subjectFilter" class="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Todas las materias</option>
+      </select>
+      <select id="teacherFilter" class="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Todos los maestros</option>
+      </select>
+      <div id="loading" class="hidden text-blue-500 font-semibold">Cargando... <span class="inline-block w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full loading-spinner"></span></div>
+    </div>
+
+    <!-- Contenedor de tablas -->
+    <div id="tablesContainer" class="space-y-4"></div>
+  </div>
+
+  <script>
+    // URL de la API de Apps Script
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbz0kaM1Qw9Z-5MCoGmg5VMnOUH9riTjkgfvZjNjDtNkoudQnBkAShLG0YNFwj0aEba0/exec';
+
+    async function fetchAttendanceDataJSONP() {
+      const cachedData = localStorage.getItem('attendanceData');
+      if (cachedData) return JSON.parse(cachedData);
+
+      return new Promise((resolve, reject) => {
+        window.handleAttendanceData = function(data) {
+          localStorage.setItem('attendanceData', JSON.stringify(data));
+          resolve(data);
+          delete window.handleAttendanceData;
+          document.body.removeChild(script);
+        };
+
+        const script = document.createElement('script');
+        script.src = `${apiUrl}?callback=handleAttendanceData`;
+        script.onerror = () => reject(new Error('Error al cargar el script JSONP'));
+        document.body.appendChild(script);
+      });
+    }
+
+    function renderTables(data, filterSubject = '', filterTeacher = '') {
+      const container = document.getElementById('tablesContainer');
+      container.innerHTML = '';
+
+      for (const subject in data) {
+        if (filterSubject && subject !== filterSubject) continue;
+
+        const records = data[subject];
+        // Filtrar registros por maestro si se selecciona uno
+        const filteredRecords = filterTeacher
+          ? records.filter(record => record.Profesor === filterTeacher)
+          : records;
+
+        // Si se selecciona un maestro y no hay registros para ese maestro en la materia, omitir la materia
+        if (filterTeacher && filteredRecords.length === 0) continue;
+
+        // Crear el elemento <details> para la sección colapsable de la materia
+        const details = document.createElement('details');
+        details.classList.add('mb-4', 'bg-white', 'rounded-lg', 'shadow-md');
+
+        // Crear el elemento <summary> para el título de la materia
+        const summary = document.createElement('summary');
+        summary.classList.add('p-4', 'text-xl', 'font-semibold', 'text-blue-600');
+        summary.textContent = subject.replace(/_/g, ' ');
+        details.appendChild(summary);
+
+        // Contenedor para las subsecciones
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('p-4');
+
+        // Subsección colapsable para la tabla principal de asistencias
+        const mainTableDetails = document.createElement('details');
+        mainTableDetails.classList.add('nested-details');
+        const mainTableSummary = document.createElement('summary');
+        mainTableSummary.classList.add('text-lg', 'font-medium', 'text-gray-700');
+        mainTableSummary.textContent = 'Ver tabla de asistencias completas';
+        mainTableDetails.appendChild(mainTableSummary);
+
+        const tableWrapper = document.createElement('div');
+        tableWrapper.classList.add('table-container', 'mt-2');
+        const table = document.createElement('table');
+        table.classList.add('min-w-full', 'border', 'border-gray-300');
+        table.setAttribute('aria-label', `Registros de asistencia para ${subject}`);
+
+        const thead = document.createElement('thead');
+        thead.classList.add('bg-blue-100', 'sticky', 'top-0');
+        const headerRow = document.createElement('tr');
+        const headers = ['Fecha', 'Nombre Alumno', 'Número Control', 'Grupo', 'Especialidad', 'Periodo', 'Profesor'];
+        headers.forEach((headerText, index) => {
+          const th = document.createElement('th');
+          th.classList.add('py-3', 'px-4', 'border-b', 'text-left', 'sortable');
+          th.textContent = headerText;
+          th.dataset.index = index;
+          th.addEventListener('click', () => sortTable(table, index, th));
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        if (filteredRecords.length > 0) {
+          filteredRecords.forEach(record => {
+            const row = document.createElement('tr');
+            row.classList.add('hover:bg-gray-50');
+
+            const cells = [
+              new Date(record.Fecha).toLocaleString(),
+              record['Nombre Alumno'],
+              record['Número Control'],
+              record.Grupo,
+              record.Especialidad,
+              record.Periodo,
+              record.Profesor
+            ];
+            cells.forEach(cellText => {
+              const td = document.createElement('td');
+              td.classList.add('py-2', 'px-4', 'border-b');
+              td.textContent = cellText;
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
+          });
+        } else {
+          const row = document.createElement('tr');
+          const cell = document.createElement('td');
+          cell.colSpan = headers.length;
+          cell.classList.add('py-4', 'text-center', 'text-gray-500');
+          cell.textContent = 'No hay registros disponibles.';
+          row.appendChild(cell);
+          tbody.appendChild(row);
+        }
+        table.appendChild(tbody);
+        tableWrapper.appendChild(table);
+        mainTableDetails.appendChild(tableWrapper);
+        contentDiv.appendChild(mainTableDetails);
+
+        // Subsección colapsable para la tabla de resumen por alumno
+        const summaryTableDetails = document.createElement('details');
+        summaryTableDetails.classList.add('nested-details');
+        const summaryTableSummary = document.createElement('summary');
+        summaryTableSummary.classList.add('text-lg', 'font-medium', 'text-gray-700');
+        summaryTableSummary.textContent = 'Ver resumen de asistencias por alumno';
+        summaryTableDetails.appendChild(summaryTableSummary);
+
+        const summaryTableWrapper = document.createElement('div');
+        summaryTableWrapper.classList.add('table-container', 'mt-2');
+        const summaryTable = document.createElement('table');
+        summaryTable.classList.add('min-w-full', 'border', 'border-gray-300');
+        summaryTable.setAttribute('aria-label', `Resumen de asistencias por alumno para ${subject}`);
+
+        // Procesar datos para el resumen
+        const attendanceByStudent = {};
+        filteredRecords.forEach(record => {
+          const studentName = record['Nombre Alumno'];
+          const studentControl = record['Número Control'];
+          const dateTime = new Date(record.Fecha).toLocaleString();
+          if (!attendanceByStudent[studentName]) {
+            attendanceByStudent[studentName] = {
+              control: studentControl,
+              dates: []
+            };
+          }
+          attendanceByStudent[studentName].dates.push(dateTime);
+        });
+
+        // Convertir a array y ordenar por nombre del alumno
+        const sortedStudents = Object.entries(attendanceByStudent).sort((a, b) => a[0].localeCompare(b[0]));
+        const maxAttendances = sortedStudents.length > 0 ? Math.max(...sortedStudents.map(([, student]) => student.dates.length)) : 0;
+
+        const summaryThead = document.createElement('thead');
+        summaryThead.classList.add('bg-blue-100', 'sticky', 'top-0');
+        const summaryHeaderRow = document.createElement('tr');
+        const summaryHeaders = ['Nombre Alumno', 'Número Control', 'Total Asistencias'];
+        for (let i = 1; i <= maxAttendances; i++) {
+          summaryHeaders.push(`Asistencia ${i}`);
+        }
+        summaryHeaders.forEach((headerText, index) => {
+          const th = document.createElement('th');
+          th.classList.add('py-3', 'px-4', 'border-b', 'text-left', 'sortable');
+          th.textContent = headerText;
+          const sortIcon = document.createElement('span');
+          sortIcon.classList.add('sort-icon');
+          sortIcon.textContent = '↕'; // Flecha bidireccional por defecto
+          th.appendChild(sortIcon);
+          th.dataset.index = index;
+          th.addEventListener('click', () => sortTable(summaryTable, index, th));
+          summaryHeaderRow.appendChild(th);
+        });
+        summaryThead.appendChild(summaryHeaderRow);
+        summaryTable.appendChild(summaryThead);
+
+        const summaryTbody = document.createElement('tbody');
+        sortedStudents.forEach(([studentName, studentData]) => {
+          const row = document.createElement('tr');
+          row.classList.add('hover:bg-gray-50');
+
+          const nameCell = document.createElement('td');
+          nameCell.classList.add('py-2', 'px-4', 'border-b');
+          nameCell.textContent = studentName;
+          row.appendChild(nameCell);
+
+          const controlCell = document.createElement('td');
+          controlCell.classList.add('py-2', 'px-4', 'border-b');
+          controlCell.textContent = studentData.control;
+          row.appendChild(controlCell);
+
+          const totalCell = document.createElement('td');
+          totalCell.classList.add('py-2', 'px-4', 'border-b', 'font-semibold');
+          totalCell.textContent = studentData.dates.length;
+          row.appendChild(totalCell);
+
+          const dates = studentData.dates;
+          for (let i = 0; i < maxAttendances; i++) {
+            const dateCell = document.createElement('td');
+            dateCell.classList.add('py-2', 'px-4', 'border-b');
+            dateCell.textContent = dates[i] || '-';
+            row.appendChild(dateCell);
+          }
+          summaryTbody.appendChild(row);
+        });
+        summaryTable.appendChild(summaryTbody);
+        summaryTableWrapper.appendChild(summaryTable);
+        summaryTableDetails.appendChild(summaryTableWrapper);
+        contentDiv.appendChild(summaryTableDetails);
+
+        details.appendChild(contentDiv);
+        container.appendChild(details);
+      }
+    }
+
+    function sortTable(table, colIndex, th) {
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const isAscending = table.dataset.sortDir !== 'asc';
+      rows.sort((a, b) => {
+        const aText = a.cells[colIndex].textContent;
+        const bText = b.cells[colIndex].textContent;
+        let comparison;
+        if (colIndex === 2) { // Columna 'Total Asistencias' (numérica)
+          comparison = parseInt(aText) - parseInt(bText);
+        } else { // Otras columnas (alfabéticas)
+          comparison = aText.localeCompare(bText);
+        }
+        return isAscending ? comparison : -comparison;
+      });
+      rows.forEach(row => tbody.appendChild(row));
+      table.dataset.sortDir = isAscending ? 'asc' : 'desc';
+
+      // Actualizar íconos de ordenación solo en la tabla de resumen
+      if (table.getAttribute('aria-label').includes('Resumen de asistencias')) {
+        const headers = table.querySelectorAll('th.sortable');
+        headers.forEach(header => {
+          const icon = header.querySelector('.sort-icon');
+          if (header.dataset.index == colIndex) {
+            icon.textContent = isAscending ? '↑' : '↓'; // Flecha ascendente o descendente
+          } else {
+            icon.textContent = '↕'; // Flecha bidireccional
+          }
+        });
+      }
+    }
+
+    function initSubjectFilter(data) {
+      const select = document.getElementById('subjectFilter');
+      Object.keys(data).forEach(subject => {
+        const option = document.createElement('option');
+        option.value = subject;
+        option.textContent = subject.replace(/_/g, ' ');
+        select.appendChild(option);
+      });
+    }
+
+    function initTeacherFilter(data) {
+      const select = document.getElementById('teacherFilter');
+      const teachers = [...new Set(Object.values(data).flat().map(record => record.Profesor))];
+      teachers.forEach(teacher => {
+        const option = document.createElement('option');
+        option.value = teacher;
+        option.textContent = teacher;
+        select.appendChild(option);
+      });
+    }
+
+    async function init() {
+      const loading = document.getElementById('loading');
+      loading.classList.remove('hidden');
+      try {
+        const data = await fetchAttendanceDataJSONP();
+        initSubjectFilter(data);
+        initTeacherFilter(data);
+        const subjectFilter = document.getElementById('subjectFilter');
+        const teacherFilter = document.getElementById('teacherFilter');
+        subjectFilter.addEventListener('change', () => renderTables(data, subjectFilter.value, teacherFilter.value));
+        teacherFilter.addEventListener('change', () => renderTables(data, subjectFilter.value, teacherFilter.value));
+        renderTables(data);
+      } catch (error) {
+        document.getElementById('tablesContainer').innerHTML = `
+          <p class="text-red-500 text-center p-4">Error al cargar los datos.</p>
+        `;
+        console.error('Error:', error);
+      } finally {
+        loading.classList.add('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
