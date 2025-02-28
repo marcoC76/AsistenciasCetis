@@ -8,32 +8,61 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Estilos personalizados para mejorar la UX */
-    .table-container { max-height: 500px; overflow-y: auto; }
-    .sortable:hover { cursor: pointer; color: #1d4ed8; }
-    .loading-spinner { animation: spin 1s linear infinite; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .table-container { 
+      max-height: 500px; 
+      overflow-y: auto; 
+    }
+    .sortable:hover { 
+      cursor: pointer; 
+      color: #60a5fa; /* Cambio a un azul más claro para tema oscuro */ 
+    }
+    .loading-spinner { 
+      animation: spin 1s linear infinite; 
+    }
+    @keyframes spin { 
+      100% { transform: rotate(360deg); } 
+    }
     /* Estilo para el summary */
-    summary { cursor: pointer; outline: none; }
+    summary { 
+      cursor: pointer; 
+      outline: none; 
+    }
     /* Ajuste de espaciado para detalles anidados */
-    .nested-details { margin-left: 1rem; margin-bottom: 1rem; }
+    .nested-details { 
+      margin-left: 1rem; 
+      margin-bottom: 1rem; 
+    }
+    /* Ajuste para detalles doblemente anidados */
+    .nested-details-level2 {
+      margin-left: 1rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+    }
     /* Estilo para los íconos de ordenación */
-    .sort-icon { margin-left: 0.5rem; font-size: 0.75rem; }
+    .sort-icon { 
+      margin-left: 0.5rem; 
+      font-size: 0.75rem; 
+    }
+    /* Estilo para el buscador */
+    .search-highlight {
+      background-color: rgba(96, 165, 250, 0.2);
+    }
   </style>
 </head>
-<body class="bg-gray-200 text-gray-900 font-sans">
+<body class="bg-slate-900 text-slate-300 font-sans">
   <div class="container mx-auto p-6">
     <!-- Título principal con mejor tipografía -->
-    <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Registro de Asistencias de Alumnos por Materia y Maestro</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center text-slate-100">Registro de Asistencias de Alumnos por Materia y Maestro</h1>
 
     <!-- Barra de herramientas: filtros por materia y maestro -->
     <div class="mb-6 flex flex-col sm:flex-row gap-4">
-      <select id="subjectFilter" class="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select id="subjectFilter" class="p-2 border bg-slate-800 border-slate-600 rounded-md shadow-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
         <option value="">Todas las materias</option>
       </select>
-      <select id="teacherFilter" class="p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select id="teacherFilter" class="p-2 border bg-slate-800 border-slate-600 rounded-md shadow-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
         <option value="">Todos los maestros</option>
       </select>
-      <div id="loading" class="hidden text-blue-500 font-semibold">Cargando... <span class="inline-block w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full loading-spinner"></span></div>
+      <div id="loading" class="hidden text-blue-400 font-semibold">Cargando... <span class="inline-block w-5 h-5 border-2 border-blue-400 border-t-transparent rounded-full loading-spinner"></span></div>
     </div>
 
     <!-- Contenedor de tablas -->
@@ -81,11 +110,11 @@
 
         // Crear el elemento <details> para la sección colapsable de la materia
         const details = document.createElement('details');
-        details.classList.add('mb-4', 'bg-white', 'rounded-lg', 'shadow-md');
+        details.classList.add('mb-4', 'bg-slate-800', 'rounded-lg', 'shadow-md');
 
         // Crear el elemento <summary> para el título de la materia
         const summary = document.createElement('summary');
-        summary.classList.add('p-4', 'text-xl', 'font-semibold', 'text-blue-600');
+        summary.classList.add('p-4', 'text-xl', 'font-semibold', 'text-blue-400');
         summary.textContent = subject.replace(/_/g, ' ');
         details.appendChild(summary);
 
@@ -97,24 +126,26 @@
         const mainTableDetails = document.createElement('details');
         mainTableDetails.classList.add('nested-details');
         const mainTableSummary = document.createElement('summary');
-        mainTableSummary.classList.add('text-lg', 'font-medium', 'text-gray-700');
+        mainTableSummary.classList.add('text-lg', 'font-medium', 'text-slate-100');
         mainTableSummary.textContent = 'Ver tabla de asistencias completas';
         mainTableDetails.appendChild(mainTableSummary);
 
         const tableWrapper = document.createElement('div');
-        tableWrapper.classList.add('table-container', 'mt-2');
+        tableWrapper.classList.add('table-container', 'mt-2', 'relative', 'flex', 'flex-col', 'w-full', 'overflow-scroll', 'shadow-md', 'rounded-lg', 'bg-clip-border');
         const table = document.createElement('table');
-        table.classList.add('min-w-full', 'border', 'border-gray-300');
+        table.classList.add('w-full', 'text-left', 'table-auto', 'min-w-max');
         table.setAttribute('aria-label', `Registros de asistencia para ${subject}`);
 
         const thead = document.createElement('thead');
-        thead.classList.add('bg-blue-100', 'sticky', 'top-0');
         const headerRow = document.createElement('tr');
         const headers = ['Fecha', 'Nombre Alumno', 'Número Control', 'Grupo', 'Especialidad', 'Periodo', 'Profesor'];
         headers.forEach((headerText, index) => {
           const th = document.createElement('th');
-          th.classList.add('py-3', 'px-4', 'border-b', 'text-left', 'sortable');
-          th.textContent = headerText;
+          th.classList.add('p-4', 'border-b', 'border-slate-600', 'bg-slate-700', 'sortable');
+          const headerP = document.createElement('p');
+          headerP.classList.add('text-sm', 'font-normal', 'leading-none', 'text-slate-300');
+          headerP.textContent = headerText;
+          th.appendChild(headerP);
           th.dataset.index = index;
           th.addEventListener('click', () => sortTable(table, index, th));
           headerRow.appendChild(th);
@@ -124,9 +155,10 @@
 
         const tbody = document.createElement('tbody');
         if (filteredRecords.length > 0) {
-          filteredRecords.forEach(record => {
+          filteredRecords.forEach((record, idx) => {
             const row = document.createElement('tr');
-            row.classList.add('hover:bg-gray-50');
+            row.classList.add('hover:bg-slate-700');
+            if (idx % 2 === 0) row.classList.add('bg-slate-900');
 
             const cells = [
               new Date(record.Fecha).toLocaleString(),
@@ -137,10 +169,17 @@
               record.Periodo,
               record.Profesor
             ];
-            cells.forEach(cellText => {
+            cells.forEach((cellText, cellIdx) => {
               const td = document.createElement('td');
-              td.classList.add('py-2', 'px-4', 'border-b');
-              td.textContent = cellText;
+              td.classList.add('p-4', 'border-b', 'border-slate-700');
+              const cellP = document.createElement('p');
+              if (cellIdx === 1) { // Nombre de alumno con estilo especial
+                cellP.classList.add('text-sm', 'text-slate-100', 'font-semibold');
+              } else {
+                cellP.classList.add('text-sm', 'text-slate-300');
+              }
+              cellP.textContent = cellText;
+              td.appendChild(cellP);
               row.appendChild(td);
             });
             tbody.appendChild(row);
@@ -149,8 +188,11 @@
           const row = document.createElement('tr');
           const cell = document.createElement('td');
           cell.colSpan = headers.length;
-          cell.classList.add('py-4', 'text-center', 'text-gray-500');
-          cell.textContent = 'No hay registros disponibles.';
+          cell.classList.add('p-4', 'text-center', 'text-slate-500');
+          const cellP = document.createElement('p');
+          cellP.classList.add('text-sm');
+          cellP.textContent = 'No hay registros disponibles.';
+          cell.appendChild(cellP);
           row.appendChild(cell);
           tbody.appendChild(row);
         }
@@ -159,95 +201,270 @@
         mainTableDetails.appendChild(tableWrapper);
         contentDiv.appendChild(mainTableDetails);
 
-        // Subsección colapsable para la tabla de resumen por alumno
-        const summaryTableDetails = document.createElement('details');
-        summaryTableDetails.classList.add('nested-details');
-        const summaryTableSummary = document.createElement('summary');
-        summaryTableSummary.classList.add('text-lg', 'font-medium', 'text-gray-700');
-        summaryTableSummary.textContent = 'Ver resumen de asistencias por alumno';
-        summaryTableDetails.appendChild(summaryTableSummary);
+        // Subsección colapsable para los resúmenes de asistencias agrupados por profesor y grupo
+        const summaryMainDetails = document.createElement('details');
+        summaryMainDetails.classList.add('nested-details');
+        const summaryMainSummary = document.createElement('summary');
+        summaryMainSummary.classList.add('text-lg', 'font-medium', 'text-slate-100');
+        summaryMainSummary.textContent = 'Ver resúmenes de asistencias por profesor y grupo';
+        summaryMainDetails.appendChild(summaryMainSummary);
 
-        const summaryTableWrapper = document.createElement('div');
-        summaryTableWrapper.classList.add('table-container', 'mt-2');
-        const summaryTable = document.createElement('table');
-        summaryTable.classList.add('min-w-full', 'border', 'border-gray-300');
-        summaryTable.setAttribute('aria-label', `Resumen de asistencias por alumno para ${subject}`);
-
-        // Procesar datos para el resumen
-        const attendanceByStudent = {};
+        // Agrupar registros por profesor
+        const recordsByTeacher = {};
         filteredRecords.forEach(record => {
-          const studentName = record['Nombre Alumno'];
-          const studentControl = record['Número Control'];
-          const dateTime = new Date(record.Fecha).toLocaleString();
-          if (!attendanceByStudent[studentName]) {
-            attendanceByStudent[studentName] = {
-              control: studentControl,
-              dates: []
-            };
+          const teacherName = record.Profesor;
+          if (!recordsByTeacher[teacherName]) {
+            recordsByTeacher[teacherName] = [];
           }
-          attendanceByStudent[studentName].dates.push(dateTime);
+          recordsByTeacher[teacherName].push(record);
         });
 
-        // Convertir a array y ordenar por nombre del alumno
-        const sortedStudents = Object.entries(attendanceByStudent).sort((a, b) => a[0].localeCompare(b[0]));
-        const maxAttendances = sortedStudents.length > 0 ? Math.max(...sortedStudents.map(([, student]) => student.dates.length)) : 0;
-
-        const summaryThead = document.createElement('thead');
-        summaryThead.classList.add('bg-blue-100', 'sticky', 'top-0');
-        const summaryHeaderRow = document.createElement('tr');
-        const summaryHeaders = ['Nombre Alumno', 'Número Control', 'Total Asistencias'];
-        for (let i = 1; i <= maxAttendances; i++) {
-          summaryHeaders.push(`Asistencia ${i}`);
+        // Para cada profesor, crear un details separado
+        for (const teacherName in recordsByTeacher) {
+          const teacherRecords = recordsByTeacher[teacherName];
+          
+          // Crear details para el profesor
+          const teacherDetails = document.createElement('details');
+          teacherDetails.classList.add('nested-details-level2', 'bg-slate-800', 'rounded-lg', 'shadow-sm');
+          
+          const teacherSummary = document.createElement('summary');
+          teacherSummary.classList.add('p-3', 'font-medium', 'text-blue-400');
+          teacherSummary.textContent = `Profesor: ${teacherName}`;
+          teacherDetails.appendChild(teacherSummary);
+          
+          // Agrupar registros de este profesor por grupo
+          const recordsByGroup = {};
+          teacherRecords.forEach(record => {
+            const groupName = record.Grupo;
+            if (!recordsByGroup[groupName]) {
+              recordsByGroup[groupName] = [];
+            }
+            recordsByGroup[groupName].push(record);
+          });
+          
+          // Para cada grupo, crear un details específico
+          for (const groupName in recordsByGroup) {
+            const groupRecords = recordsByGroup[groupName];
+            
+            // Crear details para el grupo
+            const groupDetails = document.createElement('details');
+            groupDetails.classList.add('nested-details-level2', 'ml-4', 'bg-slate-800', 'rounded-lg', 'shadow-sm', 'my-2');
+            
+            const groupSummary = document.createElement('summary');
+            groupSummary.classList.add('p-2', 'font-medium', 'text-green-400');
+            groupSummary.textContent = `Grupo: ${groupName}`;
+            groupDetails.appendChild(groupSummary);
+            
+            // Crear buscador para este grupo específico
+            const searchContainer = document.createElement('div');
+            searchContainer.classList.add('p-3', 'bg-slate-900', 'rounded-t-lg');
+            
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Buscar alumno...';
+            searchInput.classList.add('w-full', 'p-2', 'rounded-md', 'bg-slate-800', 'border', 'border-slate-600', 'text-slate-300', 'focus:outline-none', 'focus:ring-2', 'focus:ring-blue-400');
+            
+            // Función de búsqueda para este grupo específico
+            const searchId = `search-${subject}-${teacherName}-${groupName}`.replace(/\s+/g, '-');
+            searchInput.id = searchId;
+            searchInput.addEventListener('input', (e) => {
+              const searchTerm = e.target.value.toLowerCase();
+              const rows = groupSummaryTable.querySelectorAll('tbody tr');
+              
+              let hasResults = false;
+              rows.forEach(row => {
+                const studentName = row.querySelector('td:first-child p').textContent.toLowerCase();
+                const studentControl = row.querySelector('td:nth-child(2) p').textContent.toLowerCase();
+                const matches = studentName.includes(searchTerm) || studentControl.includes(searchTerm);
+                
+                row.style.display = matches ? '' : 'none';
+                if (matches) hasResults = true;
+                
+                // Resaltar los resultados coincidentes si hay texto en el buscador
+                if (searchTerm !== '') {
+                  const nameCellP = row.querySelector('td:first-child p');
+                  const controlCellP = row.querySelector('td:nth-child(2) p');
+                  
+                  if (studentName.includes(searchTerm)) {
+                    nameCellP.classList.add('search-highlight');
+                  } else {
+                    nameCellP.classList.remove('search-highlight');
+                  }
+                  
+                  if (studentControl.includes(searchTerm)) {
+                    controlCellP.classList.add('search-highlight');
+                  } else {
+                    controlCellP.classList.remove('search-highlight');
+                  }
+                } else {
+                  // Si no hay término de búsqueda, quitar todos los resaltados
+                  row.querySelectorAll('.search-highlight').forEach(el => {
+                    el.classList.remove('search-highlight');
+                  });
+                }
+              });
+              
+              // Mostrar u ocultar mensaje de "no hay resultados" según corresponda
+              const noResultsRow = groupSummaryTable.querySelector('.no-results-row');
+              if (noResultsRow) {
+                noResultsRow.style.display = hasResults ? 'none' : '';
+              }
+            });
+            
+            searchContainer.appendChild(searchInput);
+            groupDetails.appendChild(searchContainer);
+            
+            // Procesar datos para el resumen de este grupo
+            const attendanceByStudent = {};
+            groupRecords.forEach(record => {
+              const studentName = record['Nombre Alumno'];
+              const studentControl = record['Número Control'];
+              const studentEspecialidad = record.Especialidad;
+              const dateTime = new Date(record.Fecha).toLocaleString();
+              
+              if (!attendanceByStudent[studentName]) {
+                attendanceByStudent[studentName] = {
+                  control: studentControl,
+                  grupo: groupName,
+                  especialidad: studentEspecialidad,
+                  dates: []
+                };
+              }
+              attendanceByStudent[studentName].dates.push(dateTime);
+            });
+            
+            // Convertir a array y ordenar por nombre del alumno
+            const sortedStudents = Object.entries(attendanceByStudent).sort((a, b) => a[0].localeCompare(b[0]));
+            const maxAttendances = sortedStudents.length > 0 ? Math.max(...sortedStudents.map(([, student]) => student.dates.length)) : 0;
+            
+            const summaryTableWrapper = document.createElement('div');
+            summaryTableWrapper.classList.add('table-container', 'relative', 'flex', 'flex-col', 'w-full', 'overflow-scroll', 'shadow-md', 'rounded-b-lg', 'bg-clip-border');
+            
+            const groupSummaryTable = document.createElement('table');
+            groupSummaryTable.classList.add('w-full', 'text-left', 'table-auto', 'min-w-max');
+            groupSummaryTable.setAttribute('aria-label', `Resumen de asistencias para ${subject}, profesor ${teacherName}, grupo ${groupName}`);
+            
+            const summaryThead = document.createElement('thead');
+            const summaryHeaderRow = document.createElement('tr');
+            
+            // Aquí añadimos grupo y especialidad al encabezado
+            const summaryHeaders = ['Nombre Alumno', 'Número Control', 'Grupo', 'Especialidad', 'Total Asistencias'];
+            for (let i = 1; i <= maxAttendances; i++) {
+              summaryHeaders.push(`Asistencia ${i}`);
+            }
+            
+            summaryHeaders.forEach((headerText, index) => {
+              const th = document.createElement('th');
+              th.classList.add('p-4', 'border-b', 'border-slate-600', 'bg-slate-700', 'sortable');
+              const headerP = document.createElement('p');
+              headerP.classList.add('text-sm', 'font-normal', 'leading-none', 'text-slate-300');
+              headerP.textContent = headerText;
+              th.appendChild(headerP);
+              const sortIcon = document.createElement('span');
+              sortIcon.classList.add('sort-icon', 'text-slate-400');
+              sortIcon.textContent = '↕'; // Flecha bidireccional por defecto
+              th.appendChild(sortIcon);
+              th.dataset.index = index;
+              th.addEventListener('click', () => sortTable(groupSummaryTable, index, th));
+              summaryHeaderRow.appendChild(th);
+            });
+            
+            summaryThead.appendChild(summaryHeaderRow);
+            groupSummaryTable.appendChild(summaryThead);
+            
+            const summaryTbody = document.createElement('tbody');
+            // ID único para este tbody para facilitar la búsqueda
+            summaryTbody.id = `tbody-${subject}-${teacherName}-${groupName}`.replace(/\s+/g, '-');
+            
+            if (sortedStudents.length > 0) {
+              sortedStudents.forEach(([studentName, studentData], idx) => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-slate-700');
+                if (idx % 2 === 0) row.classList.add('bg-slate-900');
+                
+                // Nombre del alumno
+                const nameCell = document.createElement('td');
+                nameCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                const nameP = document.createElement('p');
+                nameP.classList.add('text-sm', 'text-slate-100', 'font-semibold');
+                nameP.textContent = studentName;
+                nameCell.appendChild(nameP);
+                row.appendChild(nameCell);
+                
+                // Número de control
+                const controlCell = document.createElement('td');
+                controlCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                const controlP = document.createElement('p');
+                controlP.classList.add('text-sm', 'text-slate-300');
+                controlP.textContent = studentData.control;
+                controlCell.appendChild(controlP);
+                row.appendChild(controlCell);
+                
+                // Grupo
+                const grupoCell = document.createElement('td');
+                grupoCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                const grupoP = document.createElement('p');
+                grupoP.classList.add('text-sm', 'text-slate-300');
+                grupoP.textContent = studentData.grupo;
+                grupoCell.appendChild(grupoP);
+                row.appendChild(grupoCell);
+                
+                // Especialidad
+                const espCell = document.createElement('td');
+                espCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                const espP = document.createElement('p');
+                espP.classList.add('text-sm', 'text-slate-300');
+                espP.textContent = studentData.especialidad;
+                espCell.appendChild(espP);
+                row.appendChild(espCell);
+                
+                // Total de asistencias
+                const totalCell = document.createElement('td');
+                totalCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                const totalP = document.createElement('p');
+                totalP.classList.add('text-sm', 'text-slate-300', 'font-semibold');
+                totalP.textContent = studentData.dates.length;
+                totalCell.appendChild(totalP);
+                row.appendChild(totalCell);
+                
+                // Fechas de asistencia
+                const dates = studentData.dates;
+                for (let i = 0; i < maxAttendances; i++) {
+                  const dateCell = document.createElement('td');
+                  dateCell.classList.add('p-4', 'border-b', 'border-slate-700');
+                  const dateP = document.createElement('p');
+                  dateP.classList.add('text-sm', 'text-slate-300');
+                  dateP.textContent = dates[i] || '-';
+                  dateCell.appendChild(dateP);
+                  row.appendChild(dateCell);
+                }
+                
+                summaryTbody.appendChild(row);
+              });
+            } else {
+              const row = document.createElement('tr');
+              row.classList.add('no-results-row');
+              const cell = document.createElement('td');
+              cell.colSpan = summaryHeaders.length;
+              cell.classList.add('p-4', 'text-center', 'text-slate-500');
+              const cellP = document.createElement('p');
+              cellP.classList.add('text-sm');
+              cellP.textContent = 'No hay registros disponibles.';
+              cell.appendChild(cellP);
+              row.appendChild(cell);
+              summaryTbody.appendChild(row);
+            }
+            
+            groupSummaryTable.appendChild(summaryTbody);
+            summaryTableWrapper.appendChild(groupSummaryTable);
+            groupDetails.appendChild(summaryTableWrapper);
+            teacherDetails.appendChild(groupDetails);
+          }
+          
+          summaryMainDetails.appendChild(teacherDetails);
         }
-        summaryHeaders.forEach((headerText, index) => {
-          const th = document.createElement('th');
-          th.classList.add('py-3', 'px-4', 'border-b', 'text-left', 'sortable');
-          th.textContent = headerText;
-          const sortIcon = document.createElement('span');
-          sortIcon.classList.add('sort-icon');
-          sortIcon.textContent = '↕'; // Flecha bidireccional por defecto
-          th.appendChild(sortIcon);
-          th.dataset.index = index;
-          th.addEventListener('click', () => sortTable(summaryTable, index, th));
-          summaryHeaderRow.appendChild(th);
-        });
-        summaryThead.appendChild(summaryHeaderRow);
-        summaryTable.appendChild(summaryThead);
-
-        const summaryTbody = document.createElement('tbody');
-        sortedStudents.forEach(([studentName, studentData]) => {
-          const row = document.createElement('tr');
-          row.classList.add('hover:bg-gray-50');
-
-          const nameCell = document.createElement('td');
-          nameCell.classList.add('py-2', 'px-4', 'border-b');
-          nameCell.textContent = studentName;
-          row.appendChild(nameCell);
-
-          const controlCell = document.createElement('td');
-          controlCell.classList.add('py-2', 'px-4', 'border-b');
-          controlCell.textContent = studentData.control;
-          row.appendChild(controlCell);
-
-          const totalCell = document.createElement('td');
-          totalCell.classList.add('py-2', 'px-4', 'border-b', 'font-semibold');
-          totalCell.textContent = studentData.dates.length;
-          row.appendChild(totalCell);
-
-          const dates = studentData.dates;
-          for (let i = 0; i < maxAttendances; i++) {
-            const dateCell = document.createElement('td');
-            dateCell.classList.add('py-2', 'px-4', 'border-b');
-            dateCell.textContent = dates[i] || '-';
-            row.appendChild(dateCell);
-          }
-          summaryTbody.appendChild(row);
-        });
-        summaryTable.appendChild(summaryTbody);
-        summaryTableWrapper.appendChild(summaryTable);
-        summaryTableDetails.appendChild(summaryTableWrapper);
-        contentDiv.appendChild(summaryTableDetails);
-
+        
+        contentDiv.appendChild(summaryMainDetails);
         details.appendChild(contentDiv);
         container.appendChild(details);
       }
@@ -257,32 +474,57 @@
       const tbody = table.querySelector('tbody');
       const rows = Array.from(tbody.querySelectorAll('tr'));
       const isAscending = table.dataset.sortDir !== 'asc';
-      rows.sort((a, b) => {
-        const aText = a.cells[colIndex].textContent;
-        const bText = b.cells[colIndex].textContent;
+      
+      // Filtrar filas para excluir la fila "no hay resultados"
+      const dataRows = rows.filter(row => !row.classList.contains('no-results-row'));
+      
+      dataRows.sort((a, b) => {
+        // Obtener el texto de la celda (considerando la estructura p dentro de td)
+        const aCell = a.cells[colIndex]?.querySelector('p');
+        const bCell = b.cells[colIndex]?.querySelector('p');
+        
+        if (!aCell || !bCell) return 0;
+        
+        const aText = aCell.textContent;
+        const bText = bCell.textContent;
+        
         let comparison;
-        if (colIndex === 2) { // Columna 'Total Asistencias' (numérica)
-          comparison = parseInt(aText) - parseInt(bText);
+        if (colIndex === 4) { // Columna 'Total Asistencias' (numérica)
+          const aValue = aText === '-' ? 0 : parseInt(aText);
+          const bValue = bText === '-' ? 0 : parseInt(bText);
+          comparison = aValue - bValue;
         } else { // Otras columnas (alfabéticas)
           comparison = aText.localeCompare(bText);
         }
         return isAscending ? comparison : -comparison;
       });
-      rows.forEach(row => tbody.appendChild(row));
-      table.dataset.sortDir = isAscending ? 'asc' : 'desc';
-
-      // Actualizar íconos de ordenación solo en la tabla de resumen
-      if (table.getAttribute('aria-label').includes('Resumen de asistencias')) {
-        const headers = table.querySelectorAll('th.sortable');
-        headers.forEach(header => {
-          const icon = header.querySelector('.sort-icon');
-          if (header.dataset.index == colIndex) {
-            icon.textContent = isAscending ? '↑' : '↓'; // Flecha ascendente o descendente
-          } else {
-            icon.textContent = '↕'; // Flecha bidireccional
-          }
-        });
+      
+      // Limpiar el tbody
+      while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
       }
+      
+      // Agregar las filas ordenadas
+      dataRows.forEach(row => tbody.appendChild(row));
+      
+      // Si había una fila de "no hay resultados", añadirla al final
+      const noResultsRow = rows.find(row => row.classList.contains('no-results-row'));
+      if (noResultsRow) {
+        tbody.appendChild(noResultsRow);
+      }
+      
+      table.dataset.sortDir = isAscending ? 'asc' : 'desc';
+      
+      // Actualizar íconos de ordenación
+      const headers = table.querySelectorAll('th.sortable');
+      headers.forEach(header => {
+        const icon = header.querySelector('.sort-icon');
+        if (header.dataset.index == colIndex) {
+          icon.textContent = isAscending ? '↑' : '↓'; // Flecha ascendente o descendente
+        } else {
+          icon.textContent = '↕'; // Flecha bidireccional
+        }
+      });
     }
 
     function initSubjectFilter(data) {
@@ -320,7 +562,9 @@
         renderTables(data);
       } catch (error) {
         document.getElementById('tablesContainer').innerHTML = `
-          <p class="text-red-500 text-center p-4">Error al cargar los datos.</p>
+          <div class="p-4 text-red-400 text-center bg-slate-800 rounded-lg shadow-md">
+            <p>Error al cargar los datos.</p>
+          </div>
         `;
         console.error('Error:', error);
       } finally {
